@@ -1,0 +1,17 @@
+# See https://www.ewaldvanderveken.dev/setting-up-a-lamp-development-environment-in-vagrant/
+Vagrant.configure("2") do |config|
+    config.vm.box = "ubuntu/focal64"
+
+    # Give our VM a name so we immediately know which box this is when opening VirtualBox, and spice up our VM's resources
+    config.vm.provider "virtualbox" do |v|
+        v.name = "Test Server"
+        v.memory = 1024
+        v.cpus = 1
+    end
+
+    # Choose a custom IP so this doesn't collide with other Vagrant boxes
+    config.vm.network "private_network", ip: "192.168.56.125"
+
+    # Execute shell script(s)
+    config.vm.provision :shell, path: "provision/provision.sh"
+end

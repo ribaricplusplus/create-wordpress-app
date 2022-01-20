@@ -1,0 +1,11 @@
+{
+	"extends": "@tsconfig/node14",
+    "compilerOptions": {
+    	"composite": true,
+		"esModuleInterop": true,
+		"resolveJsonModule": true,
+		"noImplicitAny": false,
+		"experimentalDecorators": true,
+		"emitDecoratorMetadata": true
+    }
+}

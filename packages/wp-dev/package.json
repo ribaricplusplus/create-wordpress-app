@@ -1,0 +1,23 @@
+{
+  "name": "@ribarich/wp-dev",
+  "version": "0.1.0",
+  "description": "",
+  "main": "build/src/index.js",
+  "bin": {
+    "wp-dev": "build/src/bin.js"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@wordpress/hooks": "^3.2.2",
+    "@wordpress/scripts": "^19.2.3",
+    "commander": "^8.3.0",
+    "inversify": "^6.0.1",
+    "joi": "^17.5.0",
+    "reflect-metadata": "^0.1.13"
+  }
+}

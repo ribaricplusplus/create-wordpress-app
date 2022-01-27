@@ -11,5 +11,10 @@ module.exports = {
 			displayName: 'wp-dev',
 			rootDir: '<rootDir>/packages/wp-dev',
 		},
+		{
+			testEnvironment: 'node',
+			displayName: 'wp-env-2',
+			rootDir: '<rootDir>/packages/wp-env-2'
+		}
 	],
 };

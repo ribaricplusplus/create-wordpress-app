@@ -45,8 +45,8 @@ module.exports = async function initConfig( {
 	xdebug = 'off',
 	writeChanges = false,
 } ) {
-	const configPath = path.resolve( '.wp-env.json' );
-	const config = await readConfig( configPath );
+	// TODO: Initialize wp-env meta configuration (plugins, filters, etc.)
+	const config = await readConfig( path.resolve( '.wp-env.json' ) );
 	config.debug = debug;
 
 	// Adding this to the config allows the start command to understand that the

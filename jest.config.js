@@ -12,7 +12,7 @@ module.exports = {
 			rootDir: '<rootDir>/packages/wp-dev',
 		},
 		{
-			testEnvironment: 'node',
+			...baseConfig,
 			displayName: 'wp-env-2',
 			rootDir: '<rootDir>/packages/wp-env-2',
 		},

@@ -19,7 +19,7 @@ class ValidationError extends Error {}
  * @param {?string} envLocation Identifies if the error occured in a specific environment property.
  * @return {Object} The passed config object with no modifications.
  */
-function validateConfig( config, envLocation ) {
+function validateConfig( config, envLocation = undefined ) {
 	const envPrefix = envLocation ? `env.${ envLocation }.` : '';
 	if ( config.core !== null && typeof config.core !== 'string' ) {
 		throw new ValidationError(

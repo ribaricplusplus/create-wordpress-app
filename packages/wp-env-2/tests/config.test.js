@@ -40,9 +40,10 @@ describe( 'readConfig', () => {
 		} );
 
 		it( 'Has multisite option', async () => {
-			readFile.mockImplementation( () => Promise.resolve( {} ) )
+			readFile.mockImplementation( () => Promise.resolve( '{}' ) )
 			const config = await readConfig( CONFIG_FILE_NAME )
-			expect( Object.keys( config ) ).toContain( 'multisite' )
+			expect( Object.keys( config.env.development ) ).toContain( 'multisite' )
+			expect( Object.keys( config.env.tests ) ).toContain( 'multisite' )
 		} )
 
 		it( 'should throw a validation error if config cannot be read', async () => {

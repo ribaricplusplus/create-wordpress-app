@@ -1,7 +1,8 @@
 {
 	"references": [
 		{ "path": "packages/create-wordpress-app" },
-		{ "path": "packages/wp-dev" }
+		{ "path": "packages/wp-dev" },
+		{ "path": "packages/wp-env-2" }
 	],
 	"files": []
 }

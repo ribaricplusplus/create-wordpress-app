@@ -1,56 +1,24 @@
-'use strict';
 /**
  * External dependencies
  */
-const fs = require( 'fs' ).promises;
-const path = require( 'path' );
-const os = require( 'os' );
+import fs from 'fs/promises'
+import path from 'path'
+import os from 'os'
 
 /**
  * Internal dependencies
  */
-const detectDirectoryType = require( './detect-directory-type' );
-const { validateConfig, ValidationError } = require( './validate-config' );
-const readRawConfigFile = require( './read-raw-config-file' );
-const parseConfig = require( './parse-config' );
-const md5 = require( '../md5' );
+import type WPConfig from '../interfaces/wpconfig'
+import type WPSource from '../interfaces/wp-source'
+import type WPServiceConfig from '../interfaces/wp-source'
+import detectDirectoryType from './detect-directory-type'
+import { validateConfig, ValidationError } from './validate-config' ;
+import readRawConfigFile = require( './read-raw-config-file' );
+import parseConfig from './parse-config' ;
+import md5 from  '../md5' ;
+import { defaultConfiguration } from './default-config'
 
-/**
- * wp-env configuration.
- *
- * @typedef WPConfig
- * @property {string}                           name                    Name of the environment.
- * @property {string}                           configDirectoryPath     Path to the .wp-env.json file.
- * @property {string}                           workDirectoryPath       Path to the work directory located in ~/.wp-env.
- * @property {string}                           dockerComposeConfigPath Path to the docker-compose.yml file.
- * @property {boolean}                          detectedLocalConfig     If true, wp-env detected local config and used it.
- * @property {Object.<string, WPServiceConfig>} env                     Specific config for different environments.
- * @property {boolean}                          debug                   True if debug mode is enabled.
- */
-
-/**
- * Base-level config for any particular environment. (development/tests/etc)
- *
- * @typedef WPServiceConfig
- * @property {?WPSource}                 coreSource    The WordPress installation to load in the environment.
- * @property {WPSource[]}                pluginSources Plugins to load in the environment.
- * @property {WPSource[]}                themeSources  Themes to load in the environment.
- * @property {number}                    port          The port to use.
- * @property {Object}                    config        Mapping of wp-config.php constants to their desired values.
- * @property {Object.<string, WPSource>} mappings      Mapping of WordPress directories to local directories which should be mounted.
- * @property {string}                    phpVersion    Version of PHP to use in the environments, of the format 0.0.
- */
-
-/**
- * A WordPress installation, plugin or theme to be loaded into the environment.
- *
- * @typedef WPSource
- * @property {'local'|'git'|'zip'} type     The source type.
- * @property {string}              path     The path to the WordPress installation, plugin or theme.
- * @property {?string}             url      The URL to the source download if the source type is not local.
- * @property {?string}             ref      The git ref for the source if the source type is 'git'.
- * @property {string}              basename Name that identifies the WordPress installation, plugin or theme.
- */
+export { WPConfig, WPSource, WPServiceConfig }
 
 /**
  * Reads, parses, and validates the given .wp-env.json file into a wp-env config
@@ -60,47 +28,17 @@ const md5 = require( '../md5' );
  *
  * @return {WPConfig} A parsed and validated wp-env config object.
  */
-module.exports = async function readConfig( configPath ) {
+export default async function readConfig( configPath ) {
 	const configDirectoryPath = path.dirname( configPath );
 	const workDirectoryPath = path.resolve(
 		await getHomeDirectory(),
 		md5( configPath )
 	);
 
-	// Default configuration which is overridden by .wp-env.json files.
-	const defaultConfiguration = {
-		core: null,
-		phpVersion: null,
-		plugins: [],
-		themes: [],
-		port: 8888,
-		mappings: {},
-		config: {
-			WP_DEBUG: true,
-			SCRIPT_DEBUG: true,
-			WP_ENVIRONMENT_TYPE: 'local',
-			WP_PHP_BINARY: 'php',
-			WP_TESTS_EMAIL: 'admin@example.org',
-			WP_TESTS_TITLE: 'Test Blog',
-			WP_TESTS_DOMAIN: 'http://localhost',
-			WP_SITEURL: 'http://localhost',
-			WP_HOME: 'http://localhost',
-		},
-		multisite: false,
-		env: {
-			development: {}, // No overrides needed, but it should exist.
-			tests: {
-				config: { WP_DEBUG: false, SCRIPT_DEBUG: false },
-				port: 8889,
-			},
-		},
-	};
-
 	// The specified base configuration from .wp-env.json or from the local
 	// source type which was automatically detected.
-	const baseConfig =
-		( await readRawConfigFile( '.wp-env.json', configPath ) ) ||
-		( await getDefaultBaseConfig( configPath ) );
+	const baseConfig = ( await readRawConfigFile( '.wp-env.json', configPath ) ) ||
+		( await getDefaultBaseConfig( configPath ) )
 
 	// Overriden .wp-env.json on a per-user case.
 	const overrideConfig =
@@ -266,7 +204,7 @@ function withOverrides( config ) {
 	const updateEnvUrl = ( configKey ) => {
 		[ 'development', 'tests' ].forEach( ( envKey ) => {
 			try {
-				const baseUrl = new URL(
+				const baseUrl = new globalThis.URL(
 					config.env[ envKey ].config[ configKey ]
 				);
 
@@ -307,7 +245,7 @@ function getNumberFromEnvVariable( varName ) {
 		return null;
 	}
 
-	const maybeNumber = parseInt( process.env[ varName ] );
+	const maybeNumber = parseInt( process.env[ varName ] as string );
 
 	// Throw an error if it is not parseable as a number.
 	if ( isNaN( maybeNumber ) ) {

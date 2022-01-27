@@ -15,7 +15,7 @@
 	"bugs": {},
 	"files": [
 		"bin",
-		"lib"
+		"build"
 	],
 	"main": "lib/env.js",
 	"bin": {

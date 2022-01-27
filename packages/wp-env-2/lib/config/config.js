@@ -86,6 +86,7 @@ module.exports = async function readConfig( configPath ) {
 			WP_SITEURL: 'http://localhost',
 			WP_HOME: 'http://localhost',
 		},
+		multisite: false,
 		env: {
 			development: {}, // No overrides needed, but it should exist.
 			tests: {
@@ -105,7 +106,7 @@ module.exports = async function readConfig( configPath ) {
 	const overrideConfig =
 		( await readRawConfigFile(
 			'.wp-env.override.json',
-			configPath.replace( /\.wp-env\.json$/, '.wp-env.override.json' )
+			path.join( configDirectoryPath, '.wp-env.override.json' )
 		) ) || {};
 
 	const detectedLocalConfig =

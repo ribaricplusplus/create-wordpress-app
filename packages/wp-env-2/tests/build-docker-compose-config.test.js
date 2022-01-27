@@ -89,7 +89,7 @@ describe( 'buildDockerComposeConfig', () => {
 		const expectedVolumes = [
 			'tests-wordpress:/var/www/html',
 			'/path/to/wp-uploads:/var/www/html/wp-content/uploads',
-			'phpunit-tmp:/tmp'
+			'phpunit-tmp:/tmp',
 		];
 		expect( dockerConfig.services.phpunit.volumes ).toEqual(
 			expectedVolumes
@@ -111,7 +111,7 @@ describe( 'buildDockerComposeConfig', () => {
 		const expectedVolumes = [
 			'tests-wordpress:/var/www/html',
 			'phpunit-uploads:/var/www/html/wp-content/uploads',
-			'phpunit-tmp:/tmp'
+			'phpunit-tmp:/tmp',
 		];
 		expect( dockerConfig.services.phpunit.volumes ).toEqual(
 			expectedVolumes

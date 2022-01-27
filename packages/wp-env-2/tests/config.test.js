@@ -40,6 +40,7 @@ describe( 'readConfig', () => {
 		} );
 
 		it( 'Has multisite option', async () => {
+			readFile.mockImplementation( () => Promise.resolve( {} ) )
 			const config = await readConfig( CONFIG_FILE_NAME )
 			expect( Object.keys( config ) ).toContain( 'multisite' )
 		} )

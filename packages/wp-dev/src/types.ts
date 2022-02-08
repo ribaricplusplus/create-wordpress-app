@@ -24,6 +24,7 @@ export interface CommandConfiguration {
 }
 
 export interface WpDevConfiguration {
+	[key: string]: any;
 	wpDev?: MetaWpDevConfiguration;
 }
 
@@ -39,18 +40,30 @@ export interface CommanderOptions {
 	config?: string;
 }
 
+/**
+ * Commander commands receive commander options as an argument.
+ *
+ * CommanderOptions are known, they are whatever options we define with
+ * program.option before initializing user configuration. However, after user
+ * configuration is run, a user can add their own options... So we don't know
+ * what the options are. In reality it's an extension of CommanderOptions, but
+ * it's probably not worthwhile to write types for all options.
+ */
+export type CommandCommanderOptions = object;
+
 export interface PluginInitOptions {
 	commanderOptions: CommanderOptions;
 	config: WpDevConfiguration;
 }
 
 export interface ServiceDefinitions {
-	[ service: string ]: ServiceDefinition;
+	[ service: string ]: ServiceDefinition | ServiceRegistrationCallback;
 }
+
+// Takes a container and registers the service
+export type ServiceRegistrationCallback = ( container: Container ) => void
 
 export interface ServiceDefinition {
 	symbol: symbol;
 	implementation: any;
-	// Takes a container and registers the service
-	registrationCallback?: Function;
 }

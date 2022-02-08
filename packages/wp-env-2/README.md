@@ -1,9 +1,3 @@
-# wp-env
+# WordPress Environment
 
-@wordpress/env fork that adds certain features. Be warned that this may become unmaintained at any time.
-
-Modifications
-
-- Added new PHP extension: GMP
-- PHPUnit, CLI and WordPress Dockerfiles are the same between development and test environments.
-- xDebug 3 added to PHPUnit
+THis package is not yet published. Published version (v1) available here: https://github.com/ribaricplusplus/wp-env-2

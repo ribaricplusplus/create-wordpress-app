@@ -1,9 +1,19 @@
 import SyncController from './SyncController';
-import { ServiceDefinitions } from '../../types';
+import RemoteServer from './remote-server'
+import { ServiceDefinition, ServiceRegistrationCallback } from '../../types';
 
-export const provides: ServiceDefinitions = {
+type Provides = {
+	SyncController: ServiceDefinition,
+	RemoteServer: ServiceRegistrationCallback
+}
+
+export const provides: Provides = {
 	SyncController: {
 		symbol: Symbol.for( 'SyncController' ),
 		implementation: SyncController,
 	},
+
+	RemoteServer: (container) => {
+		container.bind( Symbol.for( 'RemoteServer' ) ).to(RemoteServer).inTransientScope();
+	}
 };

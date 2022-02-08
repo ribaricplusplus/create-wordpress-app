@@ -1,6 +1,6 @@
-/**
- * TODO: Change file naming convention to LocalServer.
- */
+type MaybePromise<T> = Promise<T> | T
+
 export default interface LocalServer {
-	start: () => void;
+	start: () => MaybePromise<void>;
+	isStarted: () => MaybePromise<boolean>;
 }

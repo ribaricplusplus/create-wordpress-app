@@ -1,6 +1,6 @@
 {
 	"name": "@ribarich/wp-env-2",
-	"version": "1.2.2",
+	"version": "2.0.0",
 	"description": "WordPress env fork",
 	"author": "Bruno Ribaric",
 	"license": "GPL-2.0-or-later",

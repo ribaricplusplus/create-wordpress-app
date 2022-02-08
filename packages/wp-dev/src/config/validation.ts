@@ -7,8 +7,3 @@ export const validateCommanderOptions = ( options: any ) => {
 
 	return schema.validate( options );
 };
-
-export const validateWpDevConfiguration = ( obj: any ) => {
-	const schema = Joi.object( {} );
-	return schema.validate( obj );
-};

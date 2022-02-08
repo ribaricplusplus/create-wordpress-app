@@ -33,6 +33,18 @@ export async function cli() {
 		}
 	}
 
+	try {
+		// Let plugins add their own configuration options
+		config = applyFilters( 'wp-dev-config', config ) as WpDevConfiguration;
+	} catch ( e: any ) {
+		if ( e.name === 'ValidationError' ) {
+			console.error( 'Configuration validation error.' )
+			console.error( e.details.message )
+			return;
+		}
+		throw e;
+	}
+
 	const serviceDefinitions = applyFilters(
 		'wp-dev-service-definitions',
 		{}
@@ -41,8 +53,8 @@ export async function cli() {
 	for ( const [ identifier, definition ] of Object.entries(
 		serviceDefinitions
 	) ) {
-		if ( definition.registrationCallback ) {
-			definition.registrationCallback( container );
+		if ( typeof definition === 'function' ) {
+			definition( container )
 		} else {
 			container.bind( definition.symbol ).to( definition.implementation );
 		}

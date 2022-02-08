@@ -1,15 +1,19 @@
 import { addFilter } from '@wordpress/hooks';
+import os from 'os'
+import path from 'path'
 
 import {
 	CommandConfiguration,
 	CommanderActionGenerator,
 	PluginInitOptions,
+	CommandCommanderOptions,
+	WpDevConfiguration
 } from '../../types';
 import { provides } from './provides';
 import type SyncController from './SyncController';
 
 const sync: CommanderActionGenerator = ( config, container ) => async (
-	options: object
+	options: CommandCommanderOptions
 ) => {
 	const controller = container.get(
 		provides.SyncController.symbol
@@ -36,6 +40,17 @@ const init = () => {
 			return { ...definitions, ...provides };
 		}
 	);
+	addFilter(
+		'wp-dev-config',
+		'wp-dev/plugins/sync/config',
+		( config: WpDevConfiguration ) => {
+			const defaults = {
+				ssh: {
+					privateKeyPath: path.join( os.homedir() )
+				}
+			}
+		}
+	)
 };
 
 export const pluginConfig = {

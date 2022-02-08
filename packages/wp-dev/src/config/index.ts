@@ -5,6 +5,11 @@ import { applyFilters } from '@wordpress/hooks';
 import { WpDevConfiguration, CommanderOptions } from '../types';
 import { corePlugins } from '..//plugins';
 
+/**
+ * TODO: It would be good to give a clean way
+ * for plugins to extend the configuration, providing
+ * their own options, and validating that the configuration
+ */
 export const initConfig = async (
 	options: CommanderOptions
 ): Promise< WpDevConfiguration > => {
@@ -15,7 +20,7 @@ export const initConfig = async (
 		},
 	};
 	const config = mergeConfigs( defaultConfig, userConfig );
-	return applyFilters( 'wp-dev/config', config ) as WpDevConfiguration;
+	return config;
 };
 
 const getUserConfig = async (

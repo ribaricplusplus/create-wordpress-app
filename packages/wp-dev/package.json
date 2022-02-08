@@ -15,9 +15,14 @@
   "dependencies": {
     "@wordpress/hooks": "^3.2.2",
     "@wordpress/scripts": "^19.2.3",
+    "command-exists": "1.2.9",
     "commander": "^8.3.0",
     "inversify": "^6.0.1",
     "joi": "^17.5.0",
+    "mustache": "4.2.0",
     "reflect-metadata": "^0.1.13"
+  },
+  "devDependencies": {
+    "@types/mustache": "4.1.2"
   }
 }

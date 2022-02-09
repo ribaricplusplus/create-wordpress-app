@@ -1,3 +1,3 @@
 export default interface RemoteServer {
-	execScript: (script: string) => Promise<string>;
+	execScript: ( script: string ) => Promise< string >;
 }

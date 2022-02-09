@@ -38,8 +38,8 @@ export async function cli() {
 		config = applyFilters( 'wp-dev-config', config ) as WpDevConfiguration;
 	} catch ( e: any ) {
 		if ( e.name === 'ValidationError' ) {
-			console.error( 'Configuration validation error.' )
-			console.error( e.details.message )
+			console.error( 'Configuration validation error.' );
+			console.error( e.details.message );
 			return;
 		}
 		throw e;
@@ -54,7 +54,7 @@ export async function cli() {
 		serviceDefinitions
 	) ) {
 		if ( typeof definition === 'function' ) {
-			definition( container )
+			definition( container );
 		} else {
 			container.bind( definition.symbol ).to( definition.implementation );
 		}

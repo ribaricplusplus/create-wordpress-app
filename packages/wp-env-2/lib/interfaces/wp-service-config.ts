@@ -1,28 +1,27 @@
-import type WPSource from './wp-source'
+import type WPSource from './wp-source';
 
 export default interface WPServiceConfig {
-
 	// The WordPress installation to load in the environment.
-	coreSource?: WPSource
+	coreSource?: WPSource;
 
 	// Plugins to load in the environment.
-	pluginSources: WPSource[]
+	pluginSources: WPSource[];
 
 	// Themes to load in the environment.
-	themeSources: WPSource[]
+	themeSources: WPSource[];
 
 	// The port to use.
-	port: number
+	port: number;
 
 	// Mapping of wp-config.php constants to their desired values.
-	config: object
+	config: object;
 
 	// Mapping of WordPress directories to local directories which should be mounted.
-	mappings: { string: WPSource }
+	mappings: { string: WPSource };
 
 	// Version of PHP to use in the environments, of the format 0.0.
-	phpVersion: string
+	phpVersion: string;
 
 	// Multisite.
-	multisite: boolean
+	multisite: boolean;
 }

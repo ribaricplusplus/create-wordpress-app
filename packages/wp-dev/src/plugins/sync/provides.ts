@@ -1,11 +1,11 @@
 import SyncController from './SyncController';
-import RemoteServer from './remote-server'
+import RemoteServer from './remote-server';
 import { ServiceDefinition, ServiceRegistrationCallback } from '../../types';
 
 type Provides = {
-	SyncController: ServiceDefinition,
-	RemoteServer: ServiceRegistrationCallback
-}
+	SyncController: ServiceDefinition;
+	RemoteServer: ServiceRegistrationCallback;
+};
 
 export const provides: Provides = {
 	SyncController: {
@@ -13,7 +13,10 @@ export const provides: Provides = {
 		implementation: SyncController,
 	},
 
-	RemoteServer: (container) => {
-		container.bind( Symbol.for( 'RemoteServer' ) ).to(RemoteServer).inTransientScope();
-	}
+	RemoteServer: ( container ) => {
+		container
+			.bind( Symbol.for( 'RemoteServer' ) )
+			.to( RemoteServer )
+			.inTransientScope();
+	},
 };

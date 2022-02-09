@@ -1,6 +1,6 @@
-type MaybePromise<T> = Promise<T> | T
+type MaybePromise< T > = Promise< T > | T;
 
 export default interface LocalServer {
-	start: () => MaybePromise<void>;
-	isStarted: () => MaybePromise<boolean>;
+	start: () => MaybePromise< void >;
+	isStarted: () => MaybePromise< boolean >;
 }

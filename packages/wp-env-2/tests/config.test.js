@@ -20,7 +20,7 @@ jest.mock( 'fs', () => ( {
 
 jest.mock( '../lib/config/detect-directory-type', () => jest.fn() );
 
-const CONFIG_FILE_NAME = '.wp-env.json'
+const CONFIG_FILE_NAME = '.wp-env.json';
 
 describe( 'readConfig', () => {
 	beforeEach( () => {
@@ -40,11 +40,13 @@ describe( 'readConfig', () => {
 		} );
 
 		it( 'Has multisite option', async () => {
-			readFile.mockImplementation( () => Promise.resolve( '{}' ) )
-			const config = await readConfig( CONFIG_FILE_NAME )
-			expect( Object.keys( config.env.development ) ).toContain( 'multisite' )
-			expect( Object.keys( config.env.tests ) ).toContain( 'multisite' )
-		} )
+			readFile.mockImplementation( () => Promise.resolve( '{}' ) );
+			const config = await readConfig( CONFIG_FILE_NAME );
+			expect( Object.keys( config.env.development ) ).toContain(
+				'multisite'
+			);
+			expect( Object.keys( config.env.tests ) ).toContain( 'multisite' );
+		} );
 
 		it( 'should throw a validation error if config cannot be read', async () => {
 			readFile.mockImplementation( () =>

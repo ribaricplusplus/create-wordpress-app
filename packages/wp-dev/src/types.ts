@@ -24,7 +24,7 @@ export interface CommandConfiguration {
 }
 
 export interface WpDevConfiguration {
-	[key: string]: any;
+	[ key: string ]: any;
 	wpDev?: MetaWpDevConfiguration;
 }
 
@@ -61,7 +61,7 @@ export interface ServiceDefinitions {
 }
 
 // Takes a container and registers the service
-export type ServiceRegistrationCallback = ( container: Container ) => void
+export type ServiceRegistrationCallback = ( container: Container ) => void;
 
 export interface ServiceDefinition {
 	symbol: symbol;

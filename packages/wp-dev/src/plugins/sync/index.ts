@@ -1,13 +1,13 @@
 import { addFilter } from '@wordpress/hooks';
-import os from 'os'
-import path from 'path'
+import os from 'os';
+import path from 'path';
 
 import {
 	CommandConfiguration,
 	CommanderActionGenerator,
 	PluginInitOptions,
 	CommandCommanderOptions,
-	WpDevConfiguration
+	WpDevConfiguration,
 } from '../../types';
 import { provides } from './provides';
 import type SyncController from './SyncController';
@@ -46,11 +46,11 @@ const init = () => {
 		( config: WpDevConfiguration ) => {
 			const defaults = {
 				ssh: {
-					privateKeyPath: path.join( os.homedir() )
-				}
-			}
+					privateKeyPath: path.join( os.homedir() ),
+				},
+			};
 		}
-	)
+	);
 };
 
 export const pluginConfig = {

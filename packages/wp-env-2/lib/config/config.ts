@@ -1,24 +1,24 @@
 /**
  * External dependencies
  */
-import fs from 'fs/promises'
-import path from 'path'
-import os from 'os'
+import fs from 'fs/promises';
+import path from 'path';
+import os from 'os';
 
 /**
  * Internal dependencies
  */
-import type WPConfig from '../interfaces/wpconfig'
-import type WPSource from '../interfaces/wp-source'
-import type WPServiceConfig from '../interfaces/wp-source'
-import detectDirectoryType from './detect-directory-type'
-import { validateConfig, ValidationError } from './validate-config' ;
-import readRawConfigFile = require( './read-raw-config-file' );
-import parseConfig from './parse-config' ;
-import md5 from  '../md5' ;
-import { defaultConfiguration } from './default-config'
+import type WPConfig from '../interfaces/wpconfig';
+import type WPSource from '../interfaces/wp-source';
+import type WPServiceConfig from '../interfaces/wp-source';
+import detectDirectoryType from './detect-directory-type';
+import { validateConfig, ValidationError } from './validate-config';
+import readRawConfigFile = require('./read-raw-config-file');
+import parseConfig from './parse-config';
+import md5 from '../md5';
+import { defaultConfiguration } from './default-config';
 
-export { WPConfig, WPSource, WPServiceConfig }
+export { WPConfig, WPSource, WPServiceConfig };
 
 /**
  * Reads, parses, and validates the given .wp-env.json file into a wp-env config
@@ -37,8 +37,9 @@ export default async function readConfig( configPath ) {
 
 	// The specified base configuration from .wp-env.json or from the local
 	// source type which was automatically detected.
-	const baseConfig = ( await readRawConfigFile( '.wp-env.json', configPath ) ) ||
-		( await getDefaultBaseConfig( configPath ) )
+	const baseConfig =
+		( await readRawConfigFile( '.wp-env.json', configPath ) ) ||
+		( await getDefaultBaseConfig( configPath ) );
 
 	// Overriden .wp-env.json on a per-user case.
 	const overrideConfig =
@@ -115,7 +116,7 @@ export default async function readConfig( configPath ) {
 		detectedLocalConfig,
 		env,
 	} );
-};
+}
 
 /**
  * Deep-merges the values in the given service environment. This allows us to

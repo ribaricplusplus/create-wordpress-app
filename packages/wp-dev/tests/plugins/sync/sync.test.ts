@@ -1,22 +1,19 @@
 import 'reflect-metadata';
-import { Container, injectable } from 'inversify';
+import { Container } from 'inversify';
 
 import LocalServer from '../../../src/interfaces/local-server';
+import RemoteServer from '../../../src/interfaces/remote-server';
 import SyncController from '../../../src/plugins/sync/SyncController';
-
-@injectable()
-class MockLocalServer implements LocalServer {
-	start() {
-		throw new Error();
-	}
-}
 
 describe( 'SyncController', () => {
 	it( 'Can be instantiated', () => {
 		const container = new Container();
 		container
-			.bind< LocalServer >( Symbol.for( 'LocalServer' ) )
-			.to( MockLocalServer );
+			.bind( Symbol.for( 'LocalServer' ) )
+			.toConstantValue( jest.fn() );
+		container
+			.bind( Symbol.for( 'RemoteServer' ) )
+			.toConstantValue( jest.fn() );
 		container
 			.bind< SyncController >( Symbol.for( 'SyncController' ) )
 			.to( SyncController );

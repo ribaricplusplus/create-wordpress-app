@@ -1,0 +1,16 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Sync Local server Can start correctly 1`] = `
+"/home/vagrant/wp-env/c9362d50b1dd78da7055f0f78e244b55
+"
+`;
+
+exports[`Sync wp-dev sync Imports database 1`] = `
+"e2e_tests_val
+"
+`;
+
+exports[`Sync wp-dev sync Imports files 1`] = `
+"has file
+"
+`;

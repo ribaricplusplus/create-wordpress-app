@@ -1,0 +1,6 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`RemoteServer execScript Returns expected output for ls in test folder. 1`] = `
+"file.txt
+"
+`;

@@ -1,8 +1,8 @@
 import { WpDevConfiguration } from '../../../types';
+import SshConfig from './ssh-config';
 
-export default interface config extends WpDevConfiguration {
-	ssh: {
-		host: string;
-		privateKeyPath?: string;
-	};
+export default interface Config extends WpDevConfiguration {
+	wordPressPath: string;
+	ssh: SshConfig;
+	transformPaths?: { [ oldPath: string ]: string };
 }

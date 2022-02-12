@@ -7,7 +7,7 @@ apt-get update
 apt-get install -y apache2
 
 # Copy the vhost config file
-cp /vagrant/config/apache/wpdevtests.local.conf /etc/apache2/sites-available/wpdevtests.local.conf
+cp /vagrant/vagrant/config/apache/wpdevtests.local.conf /etc/apache2/sites-available/wpdevtests.local.conf
 
 # Disable the default vhost file
 a2dissite 000-default
@@ -46,3 +46,12 @@ wp core download --allow-root
 wp config create --dbname=$DBNAME --dbuser=$DBUSER --dbpass=$DBPASSWD --dbhost=$DBHOST --allow-root
 wp core install --url=wpdevtests.local --title=WPDevTests --admin_user=admin --admin_password=password --admin_email=test@wpdevtests.local --allow-root
 chmod a+rwx -R /var/www/wordpress
+
+# Let client access server through ssh
+cat /vagrant/vagrant/share/id_rsa.pub >> /home/vagrant/.ssh/authorized_keys
+
+# Create test folder
+cd /home/vagrant
+mkdir testfolder
+echo 'Hello world' > testfolder/file.txt
+chown -R vagrant:vagrant testfolder/

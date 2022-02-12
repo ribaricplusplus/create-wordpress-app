@@ -4,5 +4,6 @@
 	"compilerOptions": {
 		"rootDir": ".",
 		"outDir": "./build",
+		"allowJs": true
 	}
 }

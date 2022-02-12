@@ -20,12 +20,16 @@ export interface CommandConfiguration {
 	command: [ nameAndArgs: string, opts?: CommandOptions ];
 	action: CommanderActionGenerator;
 	description: [ string ];
-	options?: Array< MethodParameters< Command[ 'option' ] > >;
+	options?: Array<
+		[ opts: string, description: string, defaultValue?: any ]
+	>;
 }
 
 export interface WpDevConfiguration {
 	[ key: string ]: any;
 	wpDev?: MetaWpDevConfiguration;
+	plugins?: string[];
+	themes?: string[];
 }
 
 export interface MetaWpDevConfiguration {

@@ -1,0 +1,30 @@
+{
+  "name": "@cwapp/scripts",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "bin": {
+    "cwapp-scripts": "./bin/cli.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ribaricplusplus/create-wordpress-app.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ribaricplusplus/create-wordpress-app/issues"
+  },
+  "homepage": "https://github.com/ribaricplusplus/create-wordpress-app#readme",
+  "private": true,
+  "dependencies": {
+    "@wordpress/scripts": "21.0.1",
+    "commander": "9.0.0",
+    "inversify": "6.0.1",
+    "reflect-metadata": "0.1.13"
+  }
+}

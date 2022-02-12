@@ -28,3 +28,5 @@ test/native/junit.xml
 
 # Other
 .vagrant
+vagrant/share
+.vscode/

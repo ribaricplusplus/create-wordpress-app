@@ -11,6 +11,8 @@ import {
 } from '../../types';
 import { provides } from './provides';
 import type SyncController from './SyncController';
+import Config from './interfaces/config';
+import { extendConfig } from './config';
 
 const sync: CommanderActionGenerator = ( config, container ) => async (
 	options: CommandCommanderOptions
@@ -18,13 +20,20 @@ const sync: CommanderActionGenerator = ( config, container ) => async (
 	const controller = container.get(
 		provides.SyncController.symbol
 	) as InstanceType< typeof SyncController >;
-	controller.run( config, options );
+	await controller.run( config as Config, options );
 };
 
 const commandConfig: CommandConfiguration = {
 	command: [ 'sync' ],
 	description: [ 'Synchronize local server with upstream.' ],
 	action: sync,
+	options: [
+		[
+			'--files <files...>',
+			'Files to sync, relative to WordPress root.',
+			[ 'wp-content/plugins', 'wp-content/themes', 'wp-content/uploads' ],
+		],
+	],
 };
 
 const init = () => {
@@ -42,14 +51,8 @@ const init = () => {
 	);
 	addFilter(
 		'wp-dev-config',
-		'wp-dev/plugins/sync/config',
-		( config: WpDevConfiguration ) => {
-			const defaults = {
-				ssh: {
-					privateKeyPath: path.join( os.homedir() ),
-				},
-			};
-		}
+		'wp-dev/plugins/sync/extendConfig',
+		extendConfig
 	);
 };
 

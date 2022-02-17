@@ -1,34 +1,31 @@
 {
-  "name": "@ribarich/wp-dev",
-  "version": "0.1.0",
-  "description": "",
-  "main": "build/src/index.js",
-  "bin": {
-    "wp-dev": "build/src/bin.js"
-  },
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
-  "dependencies": {
-    "@wordpress/hooks": "^3.2.2",
-    "@wordpress/scripts": "^19.2.3",
-    "command-exists": "1.2.9",
-    "commander": "^8.3.0",
-    "handlebars": "4.7.7",
-    "inversify": "^6.0.1",
-    "joi": "^17.5.0",
-    "nanoid": "^3.2.0",
-    "reflect-metadata": "^0.1.13",
-    "ssh2": "1.6.0",
-    "tar": "6.1.11"
-  },
-  "devDependencies": {
-    "@types/mustache": "4.1.2"
-  },
-  "peerDependencies": {
-    "@wordpress/env": ">=4.2.1"
-  }
+	"name": "@ribarich/wp-dev",
+	"version": "0.1.0",
+	"description": "",
+	"main": "build/src/index.js",
+	"bin": {
+		"wp-dev": "./bin/cli.js"
+	},
+	"scripts": {
+		"test": "echo \"Error: no test specified\" && exit 1"
+	},
+	"keywords": [],
+	"author": "",
+	"license": "ISC",
+	"dependencies": {
+		"@wordpress/hooks": "^3.2.2",
+		"@wordpress/scripts": ">=21.0.0",
+		"command-exists": "1.2.9",
+		"commander": "^8.3.0",
+		"handlebars": "4.7.7",
+		"inversify": "^6.0.1",
+		"joi": "^17.5.0",
+		"nanoid": "^3.2.0",
+		"reflect-metadata": "^0.1.13",
+		"ssh2": "1.6.0",
+		"tar": "6.1.11"
+	},
+	"peerDependencies": {
+		"@wordpress/env": ">=4.2.1"
+	}
 }

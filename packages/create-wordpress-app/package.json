@@ -1,15 +1,24 @@
 {
-  "name": "@ribarich/create-wordpress-app",
-  "version": "0.1.0",
-  "description": "",
-  "main": "build/index.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
-  "author": "",
-  "license": "ISC",
-  "dependencies": {
-    "inversify": "^6.0.1",
-    "reflect-metadata": "^0.1.13"
-  }
+	"name": "@ribarich/create-wordpress-app",
+	"version": "0.1.0",
+	"main": "build/index.js",
+	"scripts": {
+		"test": "echo \"Error: no test specified\" && exit 1"
+	},
+	"author": "",
+	"license": "ISC",
+	"dependencies": {
+		"@wordpress/scripts": "^21.0.2",
+		"commander": "^9.0.0",
+		"fast-glob": "^3.2.11",
+		"handlebars": "^4.7.7",
+		"inversify": "^6.0.1",
+		"lodash": "^4.17.21",
+		"pascal-case": "^3.1.2",
+		"reflect-metadata": "^0.1.13"
+	},
+	"types": "./build/index.d.ts",
+	"bin": "bin/cli.js",
+	"keywords": [],
+	"description": ""
 }

@@ -3,7 +3,6 @@ import { addFilter } from '@wordpress/hooks';
 import { provides } from './provides';
 
 const init = () => {
-	// TODO
 	addFilter(
 		'wp-dev-service-definitions',
 		'wp-dev/plugins/wp-env-local-server/add-service-definitions',

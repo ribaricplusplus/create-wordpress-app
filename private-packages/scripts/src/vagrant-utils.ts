@@ -17,6 +17,10 @@ export default class VagrantUtils {
 		this.createSnapshotOnInitialInstall();
 	}
 
+	restoreInitialSnapshot() {
+		return execSync( 'vagrant snapshot restore initial-install' );
+	}
+
 	createSnapshotOnInitialInstall() {
 		const snapshotName = 'initial-install';
 		const snapshotsList = execSync(

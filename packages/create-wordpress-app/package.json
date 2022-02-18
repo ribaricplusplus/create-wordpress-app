@@ -2,11 +2,13 @@
 	"name": "@ribarich/create-wordpress-app",
 	"version": "0.1.0",
 	"main": "build/index.js",
-	"scripts": {
-		"test": "echo \"Error: no test specified\" && exit 1"
-	},
-	"author": "",
+	"author": "Bruno Ribaric",
 	"license": "ISC",
+	"files": [
+		"bin",
+		"build",
+		"templates"
+	],
 	"dependencies": {
 		"@wordpress/scripts": "^21.0.2",
 		"commander": "^9.0.0",
@@ -19,6 +21,9 @@
 	},
 	"types": "./build/index.d.ts",
 	"bin": "bin/cli.js",
-	"keywords": [],
-	"description": ""
+	"keywords": [ "wordpress", "environment" ],
+	"description": "Easily start WordPress development.",
+	"publishConfig": {
+		"access": "public"
+	}
 }

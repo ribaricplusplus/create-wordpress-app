@@ -31,6 +31,12 @@ Build styles and JavaScript:
 npm run start
 ```
 
+Other commands that are available:
+
+- `npm run sync` => Synchronize local server with remote server (make sure to configure remote server in wpdev.config.js first).
+- `npm run zip` => Generate ZIP. The files that are included are defined by "files" entry in package.json.
+- `npm run format` => Format files according to WordPress standards.
+
 Look into the following files for further configuration and commands:
 
 - wpdev.config.js => Remote server configuration

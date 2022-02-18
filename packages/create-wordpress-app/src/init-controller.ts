@@ -100,5 +100,6 @@ export default class InitController {
 		// Run commands - this should be parallelized in the future.
 		execSync( 'npm install', { stdio: 'inherit' } );
 		execSync( 'composer install', { stdio: 'inherit' } );
+		execSync( 'git init -b main', { stdio: 'inherit' } );
 	}
 }

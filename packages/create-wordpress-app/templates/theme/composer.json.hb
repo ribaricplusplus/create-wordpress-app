@@ -1,5 +1,5 @@
 {
-	"name": "{{ name }}",
+	"name": "{{ name }}/{{ name }}",
 	"authors": [],
 	"autoload": {
 		"psr-4": {

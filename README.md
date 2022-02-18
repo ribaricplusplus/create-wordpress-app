@@ -13,7 +13,7 @@ Create WordPress App is intentionally designed to be extremely extensible to ada
 ## Usage
 
 ```
-npx create-wordpress-app my-wp-app
+npx @ribarich/create-wordpress-app my-wp-app
 ```
 
 For now, this creates a template for a theme project. Different templates will be available in the future using the `--template` parameter.

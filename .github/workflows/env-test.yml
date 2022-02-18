@@ -2,7 +2,6 @@ name: 'Test @ribarich/wp-env-2'
 
 on:
     workflow_dispatch:
-    pull_request:
 
 # Cancels all previous workflow runs for pull requests that have not completed.
 concurrency:

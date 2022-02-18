@@ -22,7 +22,7 @@ chown vagrant:vagrant /home/vagrant/.ssh/id_rsa.pub
 cp -f /home/vagrant/.ssh/id_rsa.pub /vagrant/vagrant/share
 
 # Run wp-env start so that docker images are pulled and it doesn't take forever subsequently
-runuser -l vagrant -c "source ${VAGRANT_NVM_DIR}/nvm.sh; mkdir -p initial-wp-env; cd initial-wp-env; npm i -g @wordpress/env; wp-env start; wp-env destroy"
+runuser -l vagrant -c "source ${VAGRANT_NVM_DIR}/nvm.sh; mkdir -p initial-wp-env; cd initial-wp-env; npm i -g @wordpress/env; wp-env start; wp-env stop;"
 
 # Get composer
 apt-get -y install php-cli

@@ -1,9 +1,9 @@
 import { pascalCaseTransformMerge, pascalCase } from 'pascal-case';
 import { snakeCase, upperCase, kebabCase, startCase } from 'lodash';
 import Handlebars from 'handlebars';
-import { cp, mkdir, writeFile, readFile } from 'fs/promises'
+import { cp, mkdir, writeFile, readFile } from 'fs/promises';
 import { existsSync } from 'fs';
-import path from 'path'
+import path from 'path';
 
 /*
  * Contains duplicated functionality from wp-dev utils. This should be extracted
@@ -27,7 +27,7 @@ export async function inDirectory( dir: string, cb: Function ) {
 }
 
 interface GetCommonViewOptions {
-	name: string
+	name: string;
 }
 
 export function getCommonView( options: GetCommonViewOptions ): any {
@@ -45,17 +45,19 @@ export function getCommonView( options: GetCommonViewOptions ): any {
 		prefix: kebabCase( name ),
 		description: 'WordPress project.',
 		packageJson: {
-			wpDev: process.env.CWAPP_TESTING_WPDEV_PATH ? `file:${process.env.CWAPP_TESTING_WPDEV_PATH}` : 'x',
+			wpDev: process.env.CWAPP_TESTING_WPDEV_PATH
+				? `file:${ process.env.CWAPP_TESTING_WPDEV_PATH }`
+				: 'x',
 		},
-	}
+	};
 	view.mainFileName = `${ view.upperCaseSnakeName }_FILE`;
-	return view
+	return view;
 }
 
 interface CopyOrRenderOptions {
-	view: any
-	templateFiles: string[]
-	templateRoot: string
+	view: any;
+	templateFiles: string[];
+	templateRoot: string;
 }
 
 export async function copyOrRender( options: CopyOrRenderOptions ) {
@@ -85,10 +87,7 @@ export async function copyOrRender( options: CopyOrRenderOptions ) {
 				{ encoding: 'utf8' }
 			);
 			const rendered = Handlebars.compile( contents )( view );
-			await writeFile(
-				path.resolve( `./${ newFileName }` ),
-				rendered
-			);
+			await writeFile( path.resolve( `./${ newFileName }` ), rendered );
 		} else {
 			const destination = path.resolve( templateFile );
 			const source = path.join( templateRoot, templateFile );

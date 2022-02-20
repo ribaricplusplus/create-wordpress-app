@@ -1,8 +1,8 @@
 import { program, Command } from 'commander';
 import { applyFilters } from '@wordpress/hooks';
 import type { Container } from 'inversify';
-import minimist from 'minimist'
-import { ValidationError } from 'joi'
+import minimist from 'minimist';
+import { ValidationError } from 'joi';
 
 import packageJson from '../package.json';
 import { safeCall } from './util';
@@ -36,13 +36,15 @@ export async function initContainer(
 		 * Actually expecting that this will be the Joi validation error
 		 */
 		if ( e.name === 'ValidationError' ) {
-			console.error( 'wp-dev configuration validation error occurred (wpdev.config.js).' );
+			console.error(
+				'wp-dev configuration validation error occurred (wpdev.config.js).'
+			);
 			if ( e instanceof ValidationError ) {
-				for( const item of e.details ) {
-					console.log(item.message)
+				for ( const item of e.details ) {
+					console.log( item.message );
 				}
 			} else {
-				console.error(e)
+				console.error( e );
 			}
 		}
 		throw e;
@@ -72,11 +74,13 @@ export async function cli() {
 	// Need to get the "config" argument without running .parse on the main
 	// program because that would cause it to exit immediately when --help is
 	// called, and --help depends on the config file.
-	const tempOptions = minimist(process.argv.slice(2))
+	const tempOptions = minimist( process.argv.slice( 2 ) );
 
 	program.option( '--config <path>', 'path to custom config file' );
 
-	let options = { ...( tempOptions.config && { config: tempOptions.config } ) } as CommanderOptions;
+	let options = {
+		...( tempOptions.config && { config: tempOptions.config } ),
+	} as CommanderOptions;
 
 	const optsValidationResult = validateCommanderOptions( options );
 

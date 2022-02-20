@@ -4,11 +4,11 @@ export interface ProgramOptions {
 }
 
 export interface InitTemplateOptions {
-	templateFiles: string[]
+	templateFiles: string[];
 
 	// Directory name where the project will be initialized
-	name: string
+	name: string;
 
 	// Path to root folder where template files are located
-	templateRoot: string
+	templateRoot: string;
 }

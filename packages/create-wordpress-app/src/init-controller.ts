@@ -1,7 +1,7 @@
 import 'reflect-metadata';
 import { injectable } from 'inversify';
 import { existsSync } from 'fs';
-import { mkdir } from 'fs/promises'
+import { mkdir } from 'fs/promises';
 import path from 'path';
 import glob from 'fast-glob';
 
@@ -39,12 +39,12 @@ export default class InitController {
 
 		const name = options.name ?? path.dirname( process.cwd() );
 
-		const { initTemplate } = await import('./templates/theme')
+		const { initTemplate } = await import( './templates/theme' );
 
 		await initTemplate( {
 			templateFiles,
 			name,
-			templateRoot
-		} )
+			templateRoot,
+		} );
 	}
 }

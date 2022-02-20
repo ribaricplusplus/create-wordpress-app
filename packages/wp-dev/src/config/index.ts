@@ -19,9 +19,9 @@ export const initConfig = async (
 		};
 		const config = mergeConfigs( defaultConfig, userConfig );
 		return config;
-	} catch (e) {
-		console.error('An error occurred while initializing configuration.')
-		console.error(e);
+	} catch ( e ) {
+		console.error( 'An error occurred while initializing configuration.' );
+		console.error( e );
 		throw e;
 	}
 };

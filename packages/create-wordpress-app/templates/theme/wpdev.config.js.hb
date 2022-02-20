@@ -2,7 +2,7 @@ const os = require('os')
 const path = require('path')
 
 module.exports = {
-	themes: [ {{ name }} ],
+	themes: [ '{{ name }}' ],
 
 	/*
 	 * Path to WordPress on remote server.

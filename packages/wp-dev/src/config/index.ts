@@ -8,16 +8,22 @@ import { corePlugins } from '..//plugins';
 export const initConfig = async (
 	options: CommanderOptions
 ): Promise< WpDevConfiguration > => {
-	const userConfig = await getUserConfig( options );
-	const defaultConfig: WpDevConfiguration = {
-		plugins: [],
-		themes: [],
-		wpDev: {
-			plugins: [ ...corePlugins ],
-		},
-	};
-	const config = mergeConfigs( defaultConfig, userConfig );
-	return config;
+	try {
+		const userConfig = await getUserConfig( options );
+		const defaultConfig: WpDevConfiguration = {
+			plugins: [],
+			themes: [],
+			wpDev: {
+				plugins: [ ...corePlugins ],
+			},
+		};
+		const config = mergeConfigs( defaultConfig, userConfig );
+		return config;
+	} catch (e) {
+		console.error('An error occurred while initializing configuration.')
+		console.error(e);
+		throw e;
+	}
 };
 
 const getUserConfig = async (

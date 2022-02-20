@@ -1,9 +1,10 @@
 require( 'reflect-metadata' );
 const { Container } = require( 'inversify' );
-const { rm, readdir } = require( 'fs/promises' );
+const { rm, readdir, writeFile } = require( 'fs/promises' );
 const path = require( 'path' );
 const os = require( 'os' );
 const fs = require( 'fs' );
+const { nanoid } = require( 'nanoid' );
 
 const { initContainer } = require( '@ribarich/wp-dev/src/index.ts' );
 const SyncController = require( '@ribarich/wp-dev/src/plugins/sync/SyncController' )
@@ -20,19 +21,39 @@ const config = {
 	wordPressPath: '/var/www/wordpress',
 };
 
+let configFile = '';
+
 const commanderOptions = {
 	files: [ 'wp-content/plugins', 'wp-content/themes', 'wp-content/uploads' ],
 };
 
+const container = new Container( { defaultScope: 'Singleton' } );
+let syncController;
+
+beforeAll( async () => {
+	configFile = path.join(
+		'/vagrant/vagrant/share',
+		`config-${ nanoid() }.js`
+	);
+	try {
+		await writeFile(
+			configFile,
+			`module.exports = ${ JSON.stringify( config ) }`
+		);
+	} catch ( e ) {
+		console.error( 'Config write failed.' );
+		console.error( e );
+		process.exit( 1 );
+	}
+	await initContainer( container, { config: configFile } );
+	syncController = container.get( Symbol.for( 'SyncController' ) );
+} );
+
+afterAll( async () => {
+	await rm( configFile );
+} );
+
 describe( 'Synchronization plugin', () => {
-	const container = new Container( { defaultScope: 'Singleton' } );
-	let syncController;
-
-	beforeAll( async () => {
-		await initContainer( container, {} );
-		syncController = container.get( Symbol.for( 'SyncController' ) );
-	} );
-
 	it( 'Is available in container', async () => {
 		expect( syncController ).toBeInstanceOf( SyncController );
 	} );

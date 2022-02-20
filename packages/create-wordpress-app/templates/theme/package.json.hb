@@ -14,6 +14,7 @@
 		"zip": "wp-scripts plugin-zip",
 		"format-js": "wp-scripts format",
 		"format-php": "./vendor/bin/phpcbf .",
+		"format-scss": "wp-scripts lint-style --fix",
 		"format": "concurrently 'npm:format-*'"
 	},
 	"files": [
@@ -32,7 +33,8 @@
 		"concurrently": "^7.0.0",
 		"@wordpress/env": "^4.2.1",
 		"@ribarich/wp-dev": "{{ packageJson.wpDev }}",
-		"sass": "^1.49.8"
+		"sass": "^1.49.8",
+		"prettier": "npm:wp-prettier@2.2.1-beta-1"
 	},
 	"keywords": [],
 	"author": "",

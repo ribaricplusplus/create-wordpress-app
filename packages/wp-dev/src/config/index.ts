@@ -1,6 +1,7 @@
 import { existsSync } from 'fs';
 import { fromProjectRoot } from '@wordpress/scripts/utils';
 import { applyFilters } from '@wordpress/hooks';
+import path from 'path';
 
 import { WpDevConfiguration, CommanderOptions } from '../types';
 import { corePlugins } from '..//plugins';
@@ -8,23 +9,31 @@ import { corePlugins } from '..//plugins';
 export const initConfig = async (
 	options: CommanderOptions
 ): Promise< WpDevConfiguration > => {
-	const userConfig = await getUserConfig( options );
-	const defaultConfig: WpDevConfiguration = {
-		plugins: [],
-		themes: [],
-		wpDev: {
-			plugins: [ ...corePlugins ],
-		},
-	};
-	const config = mergeConfigs( defaultConfig, userConfig );
-	return config;
+	try {
+		const userConfig = await getUserConfig( options );
+		const defaultConfig: WpDevConfiguration = {
+			plugins: [],
+			themes: [],
+			wpDev: {
+				plugins: [ ...corePlugins ],
+			},
+		};
+		const config = mergeConfigs( defaultConfig, userConfig );
+		return config;
+	} catch ( e ) {
+		console.error( 'An error occurred while initializing configuration.' );
+		console.error( e );
+		throw e;
+	}
 };
 
 const getUserConfig = async (
 	options: CommanderOptions
 ): Promise< Partial< WpDevConfiguration > > => {
 	if ( options[ 'config' ] ) {
-		const configPath = fromProjectRoot( options[ 'config' ] );
+		const configPath = path.isAbsolute( options[ 'config' ] )
+			? options[ 'config' ]
+			: fromProjectRoot( options[ 'config' ] );
 		if ( existsSync( configPath ) ) {
 			return import( configPath );
 		} else {

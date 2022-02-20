@@ -4,7 +4,7 @@ const { rm, readdir, writeFile } = require( 'fs/promises' );
 const path = require( 'path' );
 const os = require( 'os' );
 const fs = require( 'fs' );
-const { nanoid } = require('nanoid')
+const { nanoid } = require( 'nanoid' );
 
 const { initContainer } = require( '@ribarich/wp-dev/src/index.ts' );
 const SyncController = require( '@ribarich/wp-dev/src/plugins/sync/SyncController' )
@@ -31,13 +31,19 @@ const container = new Container( { defaultScope: 'Singleton' } );
 let syncController;
 
 beforeAll( async () => {
-	configFile = path.join( '/vagrant/vagrant/share', `config-${nanoid()}.js` )
+	configFile = path.join(
+		'/vagrant/vagrant/share',
+		`config-${ nanoid() }.js`
+	);
 	try {
-		await writeFile( configFile, `module.exports = ${ JSON.stringify( config ) }` )
-	} catch (e) {
-		console.error( 'Config write failed.' )
-		console.error(e)
-		process.exit(1)
+		await writeFile(
+			configFile,
+			`module.exports = ${ JSON.stringify( config ) }`
+		);
+	} catch ( e ) {
+		console.error( 'Config write failed.' );
+		console.error( e );
+		process.exit( 1 );
 	}
 	await initContainer( container, { config: configFile } );
 	syncController = container.get( Symbol.for( 'SyncController' ) );
@@ -45,8 +51,7 @@ beforeAll( async () => {
 
 afterAll( async () => {
 	await rm( configFile );
-} )
-
+} );
 
 describe( 'Synchronization plugin', () => {
 	it( 'Is available in container', async () => {

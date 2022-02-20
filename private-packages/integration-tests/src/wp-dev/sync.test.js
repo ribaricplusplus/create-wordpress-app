@@ -32,7 +32,13 @@ let syncController;
 
 beforeAll( async () => {
 	configFile = path.join( '/vagrant/share', `config-${nanoid()}.js` )
-	await writeFile( configFile, `module.exports = JSON.parse(${ JSON.stringify( config ) })` )
+	try {
+		await writeFile( configFile, `module.exports = JSON.parse(${ JSON.stringify( config ) })` )
+	} catch (e) {
+		console.error( 'Config write failed.' )
+		console.error(e)
+		process.exit(1)
+	}
 	await initContainer( container, { config: configFile } );
 	syncController = container.get( Symbol.for( 'SyncController' ) );
 } );

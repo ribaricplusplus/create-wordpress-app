@@ -1,9 +1,10 @@
 require( 'reflect-metadata' );
 const { Container } = require( 'inversify' );
-const { rm, readdir } = require( 'fs/promises' );
+const { rm, readdir, writeFile } = require( 'fs/promises' );
 const path = require( 'path' );
 const os = require( 'os' );
 const fs = require( 'fs' );
+const { nanoid } = require('nanoid')
 
 const { initContainer } = require( '@ribarich/wp-dev/src/index.ts' );
 const SyncController = require( '@ribarich/wp-dev/src/plugins/sync/SyncController' )
@@ -20,6 +21,8 @@ const config = {
 	wordPressPath: '/var/www/wordpress',
 };
 
+let configFile = '';
+
 const commanderOptions = {
 	files: [ 'wp-content/plugins', 'wp-content/themes', 'wp-content/uploads' ],
 };
@@ -29,9 +32,15 @@ describe( 'Synchronization plugin', () => {
 	let syncController;
 
 	beforeAll( async () => {
-		await initContainer( container, {} );
+		configFile = path.join( os.tmpdir(), `config-${nanoid()}.js` )
+		await writeFile( configFile, `module.exports = JSON.parse(${ JSON.stringify( config ) })` )
+		await initContainer( container, { config: configFile } );
 		syncController = container.get( Symbol.for( 'SyncController' ) );
 	} );
+
+	afterAll( async () => {
+		await rm( configFile );
+	} )
 
 	it( 'Is available in container', async () => {
 		expect( syncController ).toBeInstanceOf( SyncController );

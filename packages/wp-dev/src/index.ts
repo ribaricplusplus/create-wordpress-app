@@ -2,6 +2,7 @@ import { program, Command } from 'commander';
 import { applyFilters } from '@wordpress/hooks';
 import type { Container } from 'inversify';
 import minimist from 'minimist'
+import { ValidationError } from 'joi'
 
 import packageJson from '../package.json';
 import { safeCall } from './util';
@@ -35,8 +36,14 @@ export async function initContainer(
 		 * Actually expecting that this will be the Joi validation error
 		 */
 		if ( e.name === 'ValidationError' ) {
-			console.error( 'Configuration validation error occurred.' );
-			console.error( e.details.message );
+			console.error( 'wp-dev configuration validation error occurred (wpdev.config.js).' );
+			if ( e instanceof ValidationError ) {
+				for( const item of e.details ) {
+					console.log(item.message)
+				}
+			} else {
+				console.error(e)
+			}
 		}
 		throw e;
 	}

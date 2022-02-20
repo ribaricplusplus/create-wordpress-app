@@ -28,13 +28,13 @@ export function extendConfig( config: WpDevConfiguration ): Config {
 	};
 
 	const schema = Joi.object( {
-		wordPressPath: Joi.string().min( 1 ),
+		wordPressPath: Joi.string().min( 1 ).required(),
 		ssh: Joi.object( {
-			host: Joi.string().min( 1 ),
-			port: Joi.number().min( 1 ).integer(),
-			username: Joi.string().min( 1 ),
-			privateKeyPath: Joi.string().min( 1 ),
-		} ),
+			host: Joi.string().min( 1 ).required(),
+			port: Joi.number().min( 1 ).integer().required(),
+			username: Joi.string().min( 1 ).required(),
+			privateKeyPath: Joi.string().min( 1 ).required(),
+		} ).required(),
 	} ).unknown( true );
 
 	Joi.assert( extendedConfig, schema );

@@ -45,7 +45,7 @@ export function getCommonView( options: GetCommonViewOptions ): any {
 		prefix: kebabCase( name ),
 		description: 'WordPress project.',
 		packageJson: {
-			wpDev: process.env.CWAPP_TESTING_WPDEV_PATH ?? 'x',
+			wpDev: process.env.CWAPP_TESTING_WPDEV_PATH ? `file:${process.env.CWAPP_TESTING_WPDEV_PATH}` : 'x',
 		},
 	}
 	view.mainFileName = `${ view.upperCaseSnakeName }_FILE`;

@@ -1,6 +1,7 @@
-import { program } from 'commander';
+import { program, Command } from 'commander';
 import { applyFilters } from '@wordpress/hooks';
 import type { Container } from 'inversify';
+import minimist from 'minimist'
 
 import packageJson from '../package.json';
 import { safeCall } from './util';
@@ -61,11 +62,15 @@ export async function initContainer(
 export async function cli() {
 	program.version( packageJson[ 'version' ] );
 
-	program.option( '-c, --config <path>', 'path to custom config file' );
+	// Need to get the "config" argument without running .parse on the main
+	// program because that would cause it to exit immediately when --help is
+	// called, and --help depends on the config file.
+	const tempOptions = minimist(process.argv.slice(2))
 
-	program.parse();
+	program.option( '--config <path>', 'path to custom config file' );
 
-	let options = program.opts() as CommanderOptions;
+	let options = { ...( tempOptions.config && { config: tempOptions.config } ) } as CommanderOptions;
+
 	const optsValidationResult = validateCommanderOptions( options );
 
 	if ( optsValidationResult.error ) {

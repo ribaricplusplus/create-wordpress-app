@@ -1,5 +1,23 @@
 # Theme template
 
+Build assets and watch for changes:
+
+```
+npm run start
+```
+
+Start local server:
+
+```
+npx wp-env start
+```
+
+For more detailed instructions, keep reading.
+
+## Local server
+
+The `@wordpress/env` package is used to setup a local development server. See `@wordpress/env` [documentation](https://developer.wordpress.org/block-editor/reference-guides/packages/packages-env/) for available commands.
+
 ## Remote server
 
 You can setup synchronization with a remote server using `wpdev.config.js`. You need to have an SSH key pair set up on your local machine and installed on the remote server, then fill in `ssh` settings in `wpdev.config.js`.

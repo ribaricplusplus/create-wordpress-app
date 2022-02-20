@@ -10,6 +10,12 @@ Setup a WordPress development environment quickly and easily. Features:
 
 Create WordPress App is intentionally designed to be extremely extensible to adapt to various local server implementations, remote server connections, WordPress configurations, etc. Documentation still needs to be written.
 
+## Dependencies
+
+- Node v16+
+- Docker
+- Docker compose
+
 ## Usage
 
 ```

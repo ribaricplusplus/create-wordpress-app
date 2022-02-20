@@ -32,7 +32,7 @@ describe( 'Synchronization plugin', () => {
 	let syncController;
 
 	beforeAll( async () => {
-		configFile = path.join( os.tmpdir(), `config-${nanoid()}.js` )
+		configFile = path.join( '/vagrant/share', `config-${nanoid()}.js` )
 		await writeFile( configFile, `module.exports = JSON.parse(${ JSON.stringify( config ) })` )
 		await initContainer( container, { config: configFile } );
 		syncController = container.get( Symbol.for( 'SyncController' ) );

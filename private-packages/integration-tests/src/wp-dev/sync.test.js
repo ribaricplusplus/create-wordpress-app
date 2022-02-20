@@ -27,21 +27,22 @@ const commanderOptions = {
 	files: [ 'wp-content/plugins', 'wp-content/themes', 'wp-content/uploads' ],
 };
 
+const container = new Container( { defaultScope: 'Singleton' } );
+let syncController;
+
+beforeAll( async () => {
+	configFile = path.join( '/vagrant/share', `config-${nanoid()}.js` )
+	await writeFile( configFile, `module.exports = JSON.parse(${ JSON.stringify( config ) })` )
+	await initContainer( container, { config: configFile } );
+	syncController = container.get( Symbol.for( 'SyncController' ) );
+} );
+
+afterAll( async () => {
+	await rm( configFile );
+} )
+
+
 describe( 'Synchronization plugin', () => {
-	const container = new Container( { defaultScope: 'Singleton' } );
-	let syncController;
-
-	beforeAll( async () => {
-		configFile = path.join( '/vagrant/share', `config-${nanoid()}.js` )
-		await writeFile( configFile, `module.exports = JSON.parse(${ JSON.stringify( config ) })` )
-		await initContainer( container, { config: configFile } );
-		syncController = container.get( Symbol.for( 'SyncController' ) );
-	} );
-
-	afterAll( async () => {
-		await rm( configFile );
-	} )
-
 	it( 'Is available in container', async () => {
 		expect( syncController ).toBeInstanceOf( SyncController );
 	} );

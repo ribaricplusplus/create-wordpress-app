@@ -1,6 +1,7 @@
 import { existsSync } from 'fs';
 import { fromProjectRoot } from '@wordpress/scripts/utils';
 import { applyFilters } from '@wordpress/hooks';
+import path from 'path'
 
 import { WpDevConfiguration, CommanderOptions } from '../types';
 import { corePlugins } from '..//plugins';
@@ -30,7 +31,7 @@ const getUserConfig = async (
 	options: CommanderOptions
 ): Promise< Partial< WpDevConfiguration > > => {
 	if ( options[ 'config' ] ) {
-		const configPath = fromProjectRoot( options[ 'config' ] );
+		const configPath = path.isAbsolute( options['config'] ) ? options['config'] : fromProjectRoot( options[ 'config' ] );
 		if ( existsSync( configPath ) ) {
 			return import( configPath );
 		} else {

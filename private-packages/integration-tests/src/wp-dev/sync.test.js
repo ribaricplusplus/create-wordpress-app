@@ -31,9 +31,9 @@ const container = new Container( { defaultScope: 'Singleton' } );
 let syncController;
 
 beforeAll( async () => {
-	configFile = path.join( '/vagrant/share', `config-${nanoid()}.js` )
+	configFile = path.join( '/vagrant/vagrant/share', `config-${nanoid()}.js` )
 	try {
-		await writeFile( configFile, `module.exports = JSON.parse(${ JSON.stringify( config ) })` )
+		await writeFile( configFile, `module.exports = ${ JSON.stringify( config ) }` )
 	} catch (e) {
 		console.error( 'Config write failed.' )
 		console.error(e)

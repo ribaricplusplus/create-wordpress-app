@@ -25,6 +25,8 @@ cd ./my-wp-app
 npx wp-env start
 ```
 
+Every template has its own documentation. You can see all currently available templates in the [templates folder](./packages/create-wordpress-app/templates)
+
 Build styles and JavaScript:
 
 ```

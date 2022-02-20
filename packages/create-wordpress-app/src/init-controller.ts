@@ -46,6 +46,5 @@ export default class InitController {
 			name,
 			templateRoot
 		} )
-
 	}
 }

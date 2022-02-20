@@ -11,7 +11,8 @@
 		"test:e2e": "cwapp-scripts e2e-test --no-suspend",
 		"test:e2e:debug": "cwapp-scripts e2e-test --no-suspend --debug-tests",
 		"test:unit:some": "npx jest --selectProjects wp-dev scripts",
-		"test": "npm run test:unit:some; npm run test:int; npm run test:e2e"
+		"test": "npm run test:unit:some; npm run test:int; npm run test:e2e",
+		"partial-publish": "npm publish -w ./packages/wp-dev -w ./packages/create-wordpress-app"
 	},
 	"keywords": [],
 	"author": "",

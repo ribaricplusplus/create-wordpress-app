@@ -55,7 +55,6 @@ module.exports = function parseConfig( config, options ) {
 			},
 			{}
 		),
-		multisite: config.multisite,
 	};
 };
 

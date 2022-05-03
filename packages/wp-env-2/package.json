@@ -10,8 +10,11 @@
 		"environment",
 		"docker"
 	],
-	"homepage": "",
-	"repository": {},
+	"homepage": "https://github.com/ribaricplusplus/create-wordpress-app/blob/main/packages/wp-env-2/README.md",
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/ribaricplusplus/create-wordpress-app.git"
+	},
 	"bugs": {},
 	"files": [
 		"bin",

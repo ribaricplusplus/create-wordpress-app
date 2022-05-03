@@ -21,3 +21,7 @@ Restore original state for all test machines:
 ```
 vagrant snapshot restore initial-install
 ```
+
+## Various tips:
+
+- Ensure that tests run with a clean state after tests have been run: `vagrant snapshot restore initial-install`

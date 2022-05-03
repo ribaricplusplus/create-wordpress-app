@@ -22,6 +22,18 @@ Restore original state for all test machines:
 vagrant snapshot restore initial-install
 ```
 
+## Debugging tests
+
+There are debug commands in `package.json`.
+
+Example of a command for debugging tests:
+
+```
+node --inspect-brk ./node_modules/.bin/jest 'config.test.js' --selectProjects wp-env-2 --runInBand --testTimeout=500000
+```
+
+Then debug tests with `chrome://inspect`.
+
 ## Various tips:
 
 - Ensure that tests run with a clean state after tests have been run: `vagrant snapshot restore initial-install`

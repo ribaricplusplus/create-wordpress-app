@@ -5,37 +5,36 @@ function getPhpVersions( config ) {
 			: '',
 		testsPhpVersion: config.env.tests.phpVersion
 			? config.env.tests.phpVersion
-			: ''
-	}
+			: '',
+	};
 }
 
 function getWpImages( config ) {
 	const { developmentPhpVersion, testsPhpVersion } = getPhpVersions( config );
 	return {
 		developmentWpImage: `wordpress${
-		developmentPhpVersion ? ':php' + developmentPhpVersion : ''
-	}`,
+			developmentPhpVersion ? ':php' + developmentPhpVersion : ''
+		}`,
 		testsWpImage: `wordpress${
-		testsPhpVersion ? ':php' + testsPhpVersion : ''
-	}`
-
-	}
+			testsPhpVersion ? ':php' + testsPhpVersion : ''
+		}`,
+	};
 }
 
 function getCliImages( config ) {
 	const { developmentPhpVersion, testsPhpVersion } = getPhpVersions( config );
 	return {
 		developmentWpCliImage: `wordpress:cli${
-		! developmentPhpVersion || developmentPhpVersion.length === 0
-			? ''
-			: '-php' + developmentPhpVersion
-	}`,
+			! developmentPhpVersion || developmentPhpVersion.length === 0
+				? ''
+				: '-php' + developmentPhpVersion
+		}`,
 		testsWpCliImage: `wordpress:cli${
-		! testsPhpVersion || testsPhpVersion.length === 0
-			? ''
-			: '-php' + testsPhpVersion
-	}`
-	}
+			! testsPhpVersion || testsPhpVersion.length === 0
+				? ''
+				: '-php' + testsPhpVersion
+		}`,
+	};
 }
 
 function getPhpunitImages( config ) {
@@ -57,7 +56,7 @@ function getPhpunitImages( config ) {
 		phpunitTag = '9' + phpunitPhpVersion;
 	}
 	const phpunitImage = `wordpressdevelop/phpunit:${ phpunitTag }`;
-	return phpunitImage
+	return phpunitImage;
 }
 
 function shouldInstallXdebug( config ) {
@@ -114,5 +113,5 @@ module.exports = {
 	getCliImages,
 	getPhpunitImages,
 	shouldInstallXdebug,
-	checkXdebugPhpCompatibility
-}
+	checkXdebugPhpCompatibility,
+};

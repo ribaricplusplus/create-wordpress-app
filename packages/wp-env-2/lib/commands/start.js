@@ -125,7 +125,9 @@ module.exports = async function start( { spinner, debug, update, xdebug } ) {
 		} ),
 		dockerCompose.buildOne( 'phpunit', {
 			...dockerComposeConfig,
-			commandOptions: shouldConfigureWp ? [ '--build', '--force-recreate' ] : []
+			commandOptions: shouldConfigureWp
+				? [ '--build', '--force-recreate' ]
+				: [],
 		} ),
 		shouldConfigureWp && downloadSources( config, spinner ),
 	] );

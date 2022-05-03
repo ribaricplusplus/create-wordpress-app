@@ -12,7 +12,12 @@ const os = require( 'os' );
  */
 const { readConfig } = require( './config' );
 const buildDockerComposeConfig = require( './build-docker-compose-config' );
-const { getCliImages, getPhpunitImages, getWpImages, shouldInstallXdebug } = require('./config-functions');
+const {
+	getCliImages,
+	getPhpunitImages,
+	getWpImages,
+	shouldInstallXdebug,
+} = require( './config-functions' );
 
 /**
  * @typedef {import('./config').WPConfig} WPConfig
@@ -84,23 +89,17 @@ module.exports = async function initConfig( {
 
 		await writeFile(
 			path.resolve( config.workDirectoryPath, 'Dockerfile' ),
-			dockerFileContents(
-				config
-			)
+			dockerFileContents( config )
 		);
 
 		await writeFile(
 			path.resolve( config.workDirectoryPath, 'Dockerfile-phpunit' ),
-			dockerFilePhpunit(
-				config
-			)
+			dockerFilePhpunit( config )
 		);
 
 		await writeFile(
 			path.resolve( config.workDirectoryPath, 'Dockerfile-cli' ),
-			dockerFileCli(
-				config
-			)
+			dockerFileCli( config )
 		);
 	} else if ( ! existsSync( config.workDirectoryPath ) ) {
 		spinner.fail(
@@ -186,13 +185,13 @@ RUN HOST_IP=$(/sbin/ip route | awk '/default/ { print $3 }'); echo "xdebug.clien
 function dockerFilePhpunit( config ) {
 	const phpunitImage = getPhpunitImages( config );
 	return `
-FROM ${phpunitImage}
+FROM ${ phpunitImage }
 
 ${ installGmpExtension() }
 
 ${ shouldInstallXdebug( config ) ? installXdebug( config.xdebug ) : '' }
 
-`
+`;
 }
 
 function dockerFileCli( config ) {
@@ -201,8 +200,7 @@ function dockerFileCli( config ) {
 	// And it doesn't matter much.
 	return `
 FROM ${ developmentWpCliImage }
-`
-
+`;
 }
 
 function installGmpExtension() {
@@ -213,5 +211,5 @@ RUN apt-get install -y libgmp-dev re2c libmhash-dev libmcrypt-dev file
 RUN if ! [ -e /usr/local/include/gmp.h ] ; then ln -s /usr/include/x86_64-linux-gnu/gmp.h /usr/local/include/; fi
 RUN docker-php-ext-configure gmp
 RUN docker-php-ext-install gmp
-`
+`;
 }

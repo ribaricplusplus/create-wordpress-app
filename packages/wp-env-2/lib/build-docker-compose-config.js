@@ -10,7 +10,13 @@ const path = require( 'path' );
  */
 const { hasSameCoreSource } = require( './wordpress' );
 const { dbEnv } = require( './config' );
-const { getPhpVersions, getWpImages, getCliImages, getPhpunitImages, shouldInstallXdebug } = require('./config-functions')
+const {
+	getPhpVersions,
+	getWpImages,
+	getCliImages,
+	getPhpunitImages,
+	shouldInstallXdebug,
+} = require( './config-functions' );
 
 /**
  * @typedef {import('./config').WPConfig} WPConfig
@@ -126,13 +132,18 @@ module.exports = function buildDockerComposeConfig( config ) {
 		mount.endsWith( ':/var/www/html/wp-content/uploads' )
 	);
 
-	const customCliConfigPath = path.resolve(`./.wpenv-config/phpcli-custom.ini`)
-	let cliMounts = []
+	const customCliConfigPath = path.resolve(
+		`./.wpenv-config/phpcli-custom.ini`
+	);
+	let cliMounts = [];
 
 	if ( fs.existsSync( customCliConfigPath ) ) {
-		cliMounts = [ ...developmentMounts, `${customCliConfigPath}:/usr/local/etc/php/conf.d/phpcli-custom.ini` ]
-	} else  {
-		cliMounts = developmentMounts
+		cliMounts = [
+			...developmentMounts,
+			`${ customCliConfigPath }:/usr/local/etc/php/conf.d/phpcli-custom.ini`,
+		];
+	} else {
+		cliMounts = developmentMounts;
 	}
 
 	return {
@@ -182,7 +193,7 @@ module.exports = function buildDockerComposeConfig( config ) {
 				depends_on: [ 'wordpress' ],
 				build: {
 					context: '.',
-					dockerfile: 'Dockerfile-cli'
+					dockerfile: 'Dockerfile-cli',
 				},
 				volumes: cliMounts,
 				user: cliUser,
@@ -195,7 +206,7 @@ module.exports = function buildDockerComposeConfig( config ) {
 				depends_on: [ 'tests-wordpress' ],
 				build: {
 					context: '.',
-					dockerfile: 'Dockerfile-cli'
+					dockerfile: 'Dockerfile-cli',
 				},
 				volumes: testsMounts,
 				user: cliUser,
@@ -211,7 +222,7 @@ module.exports = function buildDockerComposeConfig( config ) {
 			phpunit: {
 				build: {
 					context: '.',
-					dockerfile: 'Dockerfile-phpunit'
+					dockerfile: 'Dockerfile-phpunit',
 				},
 				depends_on: [ 'tests-wordpress' ],
 				volumes: [
@@ -219,7 +230,7 @@ module.exports = function buildDockerComposeConfig( config ) {
 					...( ! isMappingTestUploads
 						? [ 'phpunit-uploads:/var/www/html/wp-content/uploads' ]
 						: [] ),
-					'phpunit-tmp:/tmp'
+					'phpunit-tmp:/tmp',
 				],
 				environment: {
 					LOCAL_DIR: 'html',
@@ -227,7 +238,9 @@ module.exports = function buildDockerComposeConfig( config ) {
 						'/var/www/html/phpunit-wp-config.php',
 					...dbEnv.credentials,
 					...dbEnv.tests,
-					...( shouldInstallXdebug(config) && { LOCAL_PHP_XDEBUG: 'true' } )
+					...( shouldInstallXdebug( config ) && {
+						LOCAL_PHP_XDEBUG: 'true',
+					} ),
 				},
 			},
 		},
@@ -237,7 +250,7 @@ module.exports = function buildDockerComposeConfig( config ) {
 			mysql: {},
 			'mysql-test': {},
 			'phpunit-uploads': {},
-			'phpunit-tmp': {}
+			'phpunit-tmp': {},
 		},
 	};
 };

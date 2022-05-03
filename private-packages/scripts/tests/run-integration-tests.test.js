@@ -1,5 +1,5 @@
-const RunIntegrationTests = require( '../src/commands/run-integration-tests' )
-	.default;
+const RunIntegrationTests =
+	require( '../src/commands/run-integration-tests' ).default;
 const VagrantUtils = require( '../src/vagrant-utils' ).default;
 
 function createRunIntegrationTests() {

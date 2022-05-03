@@ -1,8 +1,8 @@
 const os = require( 'os' );
 const path = require( 'path' );
 
-const RemoteServer = require( '@ribarich/wp-dev/src/plugins/sync/remote-server' )
-	.default;
+const RemoteServer =
+	require( '@ribarich/wp-dev/src/plugins/sync/remote-server' ).default;
 
 function createRemoteServer() {
 	return new RemoteServer();

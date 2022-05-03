@@ -1,7 +1,11 @@
-/**
- * Internal dependencies
- */
-const buildDockerComposeConfig = require( '../lib/build-docker-compose-config' );
+const fsPromises = require( 'fs' ).promises;
+const path = require( 'path' );
+const {
+	buildDockerComposeConfig,
+	getMounts,
+} = require( '../lib/build-docker-compose-config' );
+const readConfig = require( '../lib/config/config' );
+const { getConfig } = require( './util' );
 
 // The basic config keys which build docker compose config requires.
 const CONFIG = {
@@ -11,6 +15,13 @@ const CONFIG = {
 	port: 8888,
 	configDirectoryPath: '/path/to/config',
 };
+
+describe( 'getMounts', () => {
+	it( 'creates expected mounts', async () => {
+		const config = await getConfig();
+		const mounts = getMounts( config.env.development );
+	} );
+} );
 
 describe( 'buildDockerComposeConfig', () => {
 	it( 'should map directories before individual sources', () => {

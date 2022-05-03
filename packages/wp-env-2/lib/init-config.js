@@ -1,23 +1,24 @@
-/**
- * External dependencies
- */
 const path = require( 'path' );
 const { writeFile, mkdir } = require( 'fs' ).promises;
 const { existsSync } = require( 'fs' );
 const yaml = require( 'js-yaml' );
 const os = require( 'os' );
 
-/**
- * Internal dependencies
- */
 const { readConfig } = require( './config' );
-const buildDockerComposeConfig = require( './build-docker-compose-config' );
+const { buildDockerComposeConfig } = require( './build-docker-compose-config' );
 const {
 	getCliImages,
 	getPhpunitImages,
 	getWpImages,
 	shouldInstallXdebug,
 } = require( './config-functions' );
+const {
+	getConfig,
+	setConfig,
+	getXdebugDataPath,
+	getCustomFilesPath,
+	getCustomPhpConfigPath,
+} = require( './data/config' );
 
 /**
  * @typedef {import('./config').WPConfig} WPConfig
@@ -53,6 +54,14 @@ module.exports = async function initConfig( {
 	// config has changed when only the xdebug param has changed. This is needed
 	// so that Docker will rebuild the image whenever the xdebug flag changes.
 	config.xdebug = xdebug;
+
+	setConfig( config );
+
+	if ( shouldInstallXdebug( config ) ) {
+		await setupProjectForXdebug();
+	}
+
+	await initCustomPhpConfig();
 
 	const dockerComposeConfig = buildDockerComposeConfig( config );
 
@@ -110,6 +119,35 @@ module.exports = async function initConfig( {
 
 	return config;
 };
+
+async function initCustomPhpConfig() {
+	const customPhpConfigPath = getCustomPhpConfigPath();
+	const dir = path.dirname( customPhpConfigPath );
+
+	if ( ! existsSync( dir ) ) {
+		await mkdir( dir );
+	}
+
+	if ( ! existsSync( customPhpConfigPath ) ) {
+		await writeFile( customPhpConfigPath, '' );
+	}
+}
+
+async function setupProjectForXdebug() {
+	const config = getConfig();
+	const { configDirectoryPath } = config;
+
+	const xdebugDataPath = getXdebugDataPath();
+	const wpenvConfigPath = getCustomFilesPath();
+
+	if ( ! existsSync( xdebugDataPath ) ) {
+		await mkdir( xdebugDataPath );
+	}
+
+	if ( ! existsSync( wpenvConfigPath ) ) {
+		await mkdir( wpenvConfigPath );
+	}
+}
 
 /**
  * Checks the configured PHP version
@@ -176,8 +214,10 @@ RUN WPENV_XDEBUG_VERSION=$( pecl list | grep -i xdebug | tail -n 1 | awk '{ prin
 	SHOULD_UPGRADE=$( php -r "$WPENV_PHP_SCRIPT" ); \
 	if ! [ -z $SHOULD_UPGRADE  ]; then pecl install xdebug-3.1.2; fi
 RUN docker-php-ext-enable xdebug
+RUN mkdir -p /var/xdebug-data && chmod a+rwx /var/xdebug-data
 RUN echo 'xdebug.start_with_request=yes' >> /usr/local/etc/php/php.ini
 RUN echo 'xdebug.mode=${ enableXdebug }' >> /usr/local/etc/php/php.ini
+RUN echo 'xdebug.output_dir=/var/xdebug-data' >> /usr/local/etc/php/php.ini
 RUN HOST_IP=$(/sbin/ip route | awk '/default/ { print $3 }'); echo "xdebug.client_host=\"$HOST_IP\"" >> /usr/local/etc/php/php.ini
 	`;
 }

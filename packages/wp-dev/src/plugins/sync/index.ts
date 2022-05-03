@@ -14,14 +14,13 @@ import type SyncController from './SyncController';
 import Config from './interfaces/config';
 import { extendConfig } from './config';
 
-const sync: CommanderActionGenerator = ( config, container ) => async (
-	options: CommandCommanderOptions
-) => {
-	const controller = container.get(
-		provides.SyncController.symbol
-	) as InstanceType< typeof SyncController >;
-	await controller.run( config as Config, options );
-};
+const sync: CommanderActionGenerator =
+	( config, container ) => async ( options: CommandCommanderOptions ) => {
+		const controller = container.get(
+			provides.SyncController.symbol
+		) as InstanceType< typeof SyncController >;
+		await controller.run( config as Config, options );
+	};
 
 const commandConfig: CommandConfiguration = {
 	command: [ 'sync' ],

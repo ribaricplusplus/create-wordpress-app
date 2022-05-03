@@ -17,6 +17,10 @@ const {
 	getPhpunitImages,
 	shouldInstallXdebug,
 } = require( './config-functions' );
+const {
+	getXdebugDataPath,
+	getCustomPhpConfigPath,
+} = require( './data/config' );
 
 /**
  * @typedef {import('./config').WPConfig} WPConfig
@@ -26,16 +30,19 @@ const {
 /**
  * Gets the volume mounts for an individual service.
  *
+ * @param fullConfig
  * @param {WPServiceConfig} config           The service config to get the mounts from.
  * @param {string}          wordpressDefault The default internal path for the WordPress
  *                                           source code (such as tests-wordpress).
  *
  * @return {string[]} An array of volumes to mount in string format.
  */
-function getMounts( config, wordpressDefault = 'wordpress' ) {
+function getMounts( fullConfig, config, wordpressDefault = 'wordpress' ) {
+	const { configDirectoryPath } = fullConfig;
 	// Top-level WordPress directory mounts (like wp-content/themes)
 	const directoryMounts = Object.entries( config.mappings ).map(
-		( [ wpDir, source ] ) => `${ source.path }:/var/www/html/${ wpDir }`
+		( [ wpDir, source ]: [ string, any ] ) =>
+			`${ source.path }:/var/www/html/${ wpDir }`
 	);
 
 	const pluginMounts = config.pluginSources.map(
@@ -52,7 +59,30 @@ function getMounts( config, wordpressDefault = 'wordpress' ) {
 		config.coreSource ? config.coreSource.path : wordpressDefault
 	}:/var/www/html`;
 
-	return [ coreMount, ...directoryMounts, ...pluginMounts, ...themeMounts ];
+	const configMounts = ( () => {
+		const configPath = getCustomPhpConfigPath();
+		return [
+			`${ configPath }:/usr/local/etc/php/conf.d/100-php-custom.ini`,
+		];
+	} )();
+
+	const xdebugMounts = ( () => {
+		if ( ! shouldInstallXdebug( fullConfig ) ) {
+			return [];
+		}
+
+		const xdebugDataPath = getXdebugDataPath();
+		return [ `${ xdebugDataPath }:/var/xdebug-data` ];
+	} )();
+
+	return [
+		coreMount,
+		...directoryMounts,
+		...pluginMounts,
+		...themeMounts,
+		...xdebugMounts,
+		...configMounts,
+	];
 }
 
 /**
@@ -63,9 +93,13 @@ function getMounts( config, wordpressDefault = 'wordpress' ) {
  *
  * @return {Object} A docker-compose config object, ready to serialize into YAML.
  */
-module.exports = function buildDockerComposeConfig( config ) {
-	const developmentMounts = getMounts( config.env.development );
-	const testsMounts = getMounts( config.env.tests, 'tests-wordpress' );
+function buildDockerComposeConfig( config ) {
+	const developmentMounts = getMounts( config, config.env.development );
+	const testsMounts = getMounts(
+		config,
+		config.env.tests,
+		'tests-wordpress'
+	);
 
 	// When both tests and development reference the same WP source, we need to
 	// ensure that tests pulls from a copy of the files so that it maintains
@@ -132,20 +166,6 @@ module.exports = function buildDockerComposeConfig( config ) {
 		mount.endsWith( ':/var/www/html/wp-content/uploads' )
 	);
 
-	const customCliConfigPath = path.resolve(
-		`./.wpenv-config/phpcli-custom.ini`
-	);
-	let cliMounts = [];
-
-	if ( fs.existsSync( customCliConfigPath ) ) {
-		cliMounts = [
-			...developmentMounts,
-			`${ customCliConfigPath }:/usr/local/etc/php/conf.d/phpcli-custom.ini`,
-		];
-	} else {
-		cliMounts = developmentMounts;
-	}
-
 	return {
 		version: '3.7',
 		services: {
@@ -195,7 +215,7 @@ module.exports = function buildDockerComposeConfig( config ) {
 					context: '.',
 					dockerfile: 'Dockerfile-cli',
 				},
-				volumes: cliMounts,
+				volumes: developmentMounts,
 				user: cliUser,
 				environment: {
 					...dbEnv.credentials,
@@ -253,4 +273,9 @@ module.exports = function buildDockerComposeConfig( config ) {
 			'phpunit-tmp': {},
 		},
 	};
+}
+
+module.exports = {
+	buildDockerComposeConfig,
+	getMounts,
 };

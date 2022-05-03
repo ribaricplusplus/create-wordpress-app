@@ -32,7 +32,8 @@ export default class SyncController {
 	async run( config: Config, options: CommandCommanderOptions ) {
 		try {
 			await this.remoteServer.connect( config );
-			const missingDependencies = await this.getMissingSystemAndServerDependencies();
+			const missingDependencies =
+				await this.getMissingSystemAndServerDependencies();
 
 			if ( missingDependencies.length > 0 ) {
 				for ( const dependency of missingDependencies ) {

@@ -7,8 +7,8 @@ const fs = require( 'fs' );
 const { nanoid } = require( 'nanoid' );
 
 const { initContainer } = require( '@ribarich/wp-dev/src/index.ts' );
-const SyncController = require( '@ribarich/wp-dev/src/plugins/sync/SyncController' )
-	.default;
+const SyncController =
+	require( '@ribarich/wp-dev/src/plugins/sync/SyncController' ).default;
 const { getCachePath } = require( '@ribarich/wp-dev/src/util' );
 
 const config = {

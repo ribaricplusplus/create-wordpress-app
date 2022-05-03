@@ -78,9 +78,10 @@ export default class VagrantUtils {
 					if ( matchingMachineIndex !== -1 ) {
 						// This field defines the start of output of snapshots
 						// for a new machine. Remember that and return.
-						currentMachine = Object.entries( machineRegex )[
-							matchingMachineIndex
-						][ 0 ];
+						currentMachine =
+							Object.entries( machineRegex )[
+								matchingMachineIndex
+							][ 0 ];
 						return acc;
 					}
 				}

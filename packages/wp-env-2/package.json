@@ -20,7 +20,7 @@
 		"bin",
 		"build"
 	],
-	"main": "lib/env.js",
+	"main": "build/lib/env.js",
 	"bin": {
 		"wp-env": "bin/wp-env"
 	},

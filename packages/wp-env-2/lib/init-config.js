@@ -144,7 +144,7 @@ async function setupProjectForXdebug() {
 		await mkdir( xdebugDataPath );
 	}
 
-	await chmod(xdebugDataPath, 0o777)
+	await chmod( xdebugDataPath, 0o777 );
 
 	if ( ! existsSync( wpenvConfigPath ) ) {
 		await mkdir( wpenvConfigPath );

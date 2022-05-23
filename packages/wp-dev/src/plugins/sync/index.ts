@@ -1,13 +1,9 @@
 import { addFilter } from '@wordpress/hooks';
-import os from 'os';
-import path from 'path';
 
 import {
 	CommandConfiguration,
 	CommanderActionGenerator,
-	PluginInitOptions,
 	CommandCommanderOptions,
-	WpDevConfiguration,
 } from '../../types';
 import { provides } from './provides';
 import type SyncController from './SyncController';
@@ -18,11 +14,19 @@ const sync: CommanderActionGenerator =
 	( config, container ) => async ( options: CommandCommanderOptions ) => {
 		const controller = container.get(
 			provides.SyncController.symbol
-		) as InstanceType< typeof SyncController >;
+		) as SyncController;
 		await controller.run( config as Config, options );
 	};
 
-const commandConfig: CommandConfiguration = {
+const push: CommanderActionGenerator =
+	( config, container ) => async ( options: CommandCommanderOptions ) => {
+	    const controller = container.get(
+		    provides.SyncController.symbol
+		) as SyncController
+		await controller.push( config as Config, options )
+	}
+
+const syncCommandConfig: CommandConfiguration = {
 	command: [ 'sync' ],
 	description: [ 'Synchronize local server with upstream.' ],
 	action: sync,
@@ -35,11 +39,17 @@ const commandConfig: CommandConfiguration = {
 	],
 };
 
+const pushCommandConfig: CommandConfiguration = {
+	command: [ 'push' ],
+	description: [ 'Push local files to upstream.' ],
+	action: push
+}
+
 const init = () => {
 	addFilter(
 		'wp-dev-commands-configurations',
 		'wp-dev/plugins/sync/add-commands',
-		( commands ) => [ ...commands, commandConfig ]
+		( commands ) => [ ...commands, syncCommandConfig, pushCommandConfig ]
 	);
 	addFilter(
 		'wp-dev-service-definitions',

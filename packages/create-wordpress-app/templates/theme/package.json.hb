@@ -26,14 +26,14 @@
 		"*.php"
 	],
 	"dependencies": {
-		"@wordpress/dom-ready": "^3.3.1"
+		"@wordpress/dom-ready": "x"
 	},
 	"devDependencies": {
-		"@wordpress/scripts": "^21.0.1",
-		"concurrently": "^7.0.0",
-		"@wordpress/env": "^4.2.1",
+		"@wordpress/scripts": "x",
+		"concurrently": "x",
+		"@ribarich/wp-env-2": "{{ packageJson.wpEnv }}",
 		"@ribarich/wp-dev": "{{ packageJson.wpDev }}",
-		"sass": "^1.49.8",
+		"sass": "x",
 		"prettier": "npm:wp-prettier@2.2.1-beta-1"
 	},
 	"keywords": [],

@@ -21,7 +21,10 @@
 	},
 	"types": "./build/index.d.ts",
 	"bin": "bin/cli.js",
-	"keywords": [ "wordpress", "environment" ],
+	"keywords": [
+		"wordpress",
+		"environment"
+	],
 	"description": "Easily start WordPress development.",
 	"publishConfig": {
 		"access": "public"

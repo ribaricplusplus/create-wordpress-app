@@ -31,6 +31,10 @@ export default class RemoteServer implements IRemoteServer {
 	 * @throws If connection fails.
 	 */
 	async connect( { ssh }: Config ): Promise< void > {
+		if ( this.isConnected ) {
+			return;
+		}
+
 		const privateKey = await readFile( ssh.privateKeyPath, {
 			encoding: 'utf8',
 		} );

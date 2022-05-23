@@ -29,11 +29,11 @@
 	"devDependencies": {
 		"@cwapp/scripts": "file:private-packages/scripts",
 		"@tsconfig/node16": "1.0.2",
-		"@types/jest": "^27.5.0",
-		"@wordpress/scripts": "^22.5.0",
-		"jest": "^28.0.3",
+		"@types/jest": "^27.5.1",
+		"@wordpress/scripts": "^23.1.0",
+		"jest": "^28.1.0",
 		"prettier": "npm:wp-prettier@2.6.2-beta-1",
-		"ts-jest": "^28.0.0",
+		"ts-jest": "^28.0.2",
 		"typescript": "^4.6.4"
 	}
 }

@@ -29,6 +29,10 @@ export default class SyncController {
 		this.remoteServer = remoteServer;
 	}
 
+	async push( config: Config, options: CommandCommanderOptions ) {
+		//
+	}
+
 	async run( config: Config, options: CommandCommanderOptions ) {
 		try {
 			await this.remoteServer.connect( config );
@@ -116,7 +120,7 @@ export default class SyncController {
 			);
 
 			if ( code !== 0 ) {
-				missing.push( { type: 'server', name: 'tar' } );
+				missing.push( { type: 'server', name: c } );
 			}
 		}
 

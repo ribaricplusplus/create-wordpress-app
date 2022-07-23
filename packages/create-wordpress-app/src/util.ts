@@ -27,6 +27,7 @@ export async function inDirectory( dir: string, cb: Function ) {
 }
 
 interface GetCommonViewOptions {
+	// Template name
 	name: string;
 }
 
@@ -47,6 +48,9 @@ export function getCommonView( options: GetCommonViewOptions ): any {
 		packageJson: {
 			wpDev: process.env.CWAPP_TESTING_WPDEV_PATH
 				? `file:${ process.env.CWAPP_TESTING_WPDEV_PATH }`
+				: 'x',
+			wpEnv: process.env.CWAPP_WPENV_PATH
+				? `file:${ process.env.CWAPP_WPENV_PATH }`
 				: 'x',
 		},
 	};

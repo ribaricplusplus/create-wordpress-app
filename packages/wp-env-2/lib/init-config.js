@@ -1,5 +1,5 @@
 const path = require( 'path' );
-const { writeFile, mkdir } = require( 'fs' ).promises;
+const { writeFile, mkdir, chmod } = require( 'fs' ).promises;
 const { existsSync } = require( 'fs' );
 const yaml = require( 'js-yaml' );
 const os = require( 'os' );
@@ -144,6 +144,8 @@ async function setupProjectForXdebug() {
 		await mkdir( xdebugDataPath );
 	}
 
+	await chmod( xdebugDataPath, 0o777 );
+
 	if ( ! existsSync( wpenvConfigPath ) ) {
 		await mkdir( wpenvConfigPath );
 	}
@@ -214,7 +216,7 @@ RUN WPENV_XDEBUG_VERSION=$( pecl list | grep -i xdebug | tail -n 1 | awk '{ prin
 	SHOULD_UPGRADE=$( php -r "$WPENV_PHP_SCRIPT" ); \
 	if ! [ -z $SHOULD_UPGRADE  ]; then pecl install xdebug-3.1.2; fi
 RUN docker-php-ext-enable xdebug
-RUN mkdir -p /var/xdebug-data && chmod a+rwx /var/xdebug-data
+RUN mkdir -p /var/xdebug-data
 RUN echo 'xdebug.start_with_request=yes' >> /usr/local/etc/php/php.ini
 RUN echo 'xdebug.mode=${ enableXdebug }' >> /usr/local/etc/php/php.ini
 RUN echo 'xdebug.output_dir=/var/xdebug-data' >> /usr/local/etc/php/php.ini

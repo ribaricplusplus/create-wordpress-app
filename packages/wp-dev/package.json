@@ -14,21 +14,21 @@
 	"author": "Bruno Ribaric",
 	"license": "ISC",
 	"dependencies": {
-		"@wordpress/hooks": "^3.2.2",
-		"@wordpress/scripts": ">=21.0.0",
+		"@wordpress/hooks": "^3.9.0",
+		"@wordpress/scripts": ">=23.1.0",
 		"command-exists": "1.2.9",
-		"commander": "^8.3.0",
+		"commander": "^9.2.0",
 		"handlebars": "4.7.7",
 		"inversify": "^6.0.1",
-		"joi": "^17.5.0",
-		"minimist": "^1.2.5",
-		"nanoid": "^3.2.0",
+		"joi": "^17.6.0",
+		"minimist": "^1.2.6",
+		"nanoid": "^3.3.4",
 		"reflect-metadata": "^0.1.13",
-		"ssh2": "1.6.0",
+		"ssh2": "1.10.0",
 		"tar": "6.1.11"
 	},
 	"peerDependencies": {
-		"@wordpress/env": ">=4.2.1"
+		"@ribarich/wp-env-2": "^2.0.0"
 	},
 	"publishConfig": {
 		"access": "public"

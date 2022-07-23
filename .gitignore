@@ -30,3 +30,4 @@ test/native/junit.xml
 .vagrant
 vagrant/share
 .vscode/
+package-lock.json

@@ -34,7 +34,7 @@
 		"@ribarich/wp-env-2": "{{ packageJson.wpEnv }}",
 		"@ribarich/wp-dev": "{{ packageJson.wpDev }}",
 		"sass": "x",
-		"prettier": "npm:wp-prettier@2.2.1-beta-1"
+		"prettier": "npm:wp-prettier@2.6.2"
 	},
 	"keywords": [],
 	"author": "",

@@ -14,17 +14,17 @@
 	"author": "Bruno Ribaric",
 	"license": "ISC",
 	"dependencies": {
-		"@wordpress/hooks": "^3.9.0",
-		"@wordpress/scripts": ">=23.1.0",
+		"@wordpress/hooks": "^3.13.0",
+		"@wordpress/scripts": ">=23.5.0",
 		"command-exists": "1.2.9",
-		"commander": "^9.2.0",
+		"commander": "^9.4.0",
 		"handlebars": "4.7.7",
 		"inversify": "^6.0.1",
 		"joi": "^17.6.0",
 		"minimist": "^1.2.6",
-		"nanoid": "^3.3.4",
+		"nanoid": "^4.0.0",
 		"reflect-metadata": "^0.1.13",
-		"ssh2": "1.10.0",
+		"ssh2": "1.11.0",
 		"tar": "6.1.11"
 	},
 	"peerDependencies": {

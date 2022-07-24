@@ -4,7 +4,7 @@ import { ProgramOptions } from './types';
 import { container } from './container';
 import type InitController from './init-controller';
 
-export const VERSION = '0.1.4';
+export const VERSION = '0.1.5';
 
 export async function cli() {
 	program.version( VERSION );

@@ -1,7 +1,7 @@
 import 'reflect-metadata';
 import { injectable } from 'inversify';
 import { execSync } from 'child_process';
-import { readConfig } from '@ribarich/wp-env-2/lib/config';
+import { readConfig } from '@ribarich/wp-env-2/build/lib/config';
 import path from 'path';
 import fs from 'fs';
 

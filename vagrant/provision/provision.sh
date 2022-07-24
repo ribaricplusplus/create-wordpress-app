@@ -1,5 +1,7 @@
 #!/bin/bash
 
+set -e
+
 mkdir -p /var/www/wordpress
 chmod a+rwx /var/www/wordpress
 
@@ -24,7 +26,7 @@ DBNAME=wordpress
 DBUSER=wp
 DBPASSWD=password
 
-apt-get -y install mariadb-server-10.3
+apt-get -y install mariadb-server
 
 # Create the database and grant privileges
 CMD="mariadb -e"

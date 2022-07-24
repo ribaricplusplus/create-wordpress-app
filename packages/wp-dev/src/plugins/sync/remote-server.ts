@@ -94,15 +94,15 @@ export default class RemoteServer implements IRemoteServer {
 		let result;
 
 		try {
-			const writeStream = sftp.createWriteStream( remoteScriptPath, {
-				mode: 0o776,
-				encoding: 'utf8',
-			} );
-			writeStream.end( script );
 			await new Promise( ( resolve, reject ) => {
+				const writeStream = sftp.createWriteStream( remoteScriptPath, {
+					mode: 0o776,
+					encoding: 'utf8',
+				} );
 				writeStream.once( 'error', reject );
 				writeStream.once( 'finish', resolve );
-			} );
+				writeStream.end( script );
+			} )
 			result = await new Promise( ( resolve, reject ) => {
 				this.client.exec( remoteScriptPath, ( err, stream ) => {
 					if ( err ) {

@@ -5,7 +5,7 @@
 	"main": "index.js",
 	"scripts": {
 		"start": "tsc -b -w",
-		"build": "tsc -b --clean",
+		"build": "tsc -b",
 		"format": "wp-scripts format",
 		"test:int:debug": "cwapp-scripts run-integration-tests --no-suspend --debug-tests --extra-jest-arguments '--testTimeout=500000'",
 		"test:int": "cwapp-scripts run-integration-tests --no-suspend",

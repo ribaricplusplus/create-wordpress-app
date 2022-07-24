@@ -5,5 +5,8 @@
 		"rootDir": ".",
 		"outDir": "./build",
 		"allowJs": true
-	}
+	},
+	"references": [
+		{ "path": "../wp-env-2" }
+	]
 }

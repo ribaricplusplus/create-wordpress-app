@@ -1,5 +1,5 @@
 const baseConfig = {
-	preset: 'ts-jest',
+	preset: 'ts-jest/presets/js-with-babel',
 	testEnvironment: 'node',
 };
 

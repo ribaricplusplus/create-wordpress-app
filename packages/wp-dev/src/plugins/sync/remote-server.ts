@@ -20,6 +20,7 @@ export default class RemoteServer implements IRemoteServer {
 		this.client.on( 'error', ( err ) => {
 			console.error( 'SSH client error occurred.' );
 			console.error( err );
+			throw err
 		} );
 
 		this.client.on( 'end', () => {

@@ -13,7 +13,7 @@ export function extendConfig( config: WpDevConfiguration ): Config {
 	} = {
 		wordPressPath: '/var/www/html',
 		ssh: {
-			privateKeyPath: path.join( os.homedir(), '.ssh/id_rsa' ),
+			privateKeyPath: path.join( os.homedir(), '.ssh/id_ecdsa' ),
 			port: 22,
 		},
 	};

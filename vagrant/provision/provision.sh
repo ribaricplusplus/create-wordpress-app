@@ -48,7 +48,7 @@ wp core install --url=wpdevtests.local --title=WPDevTests --admin_user=admin --a
 chmod a+rwx -R /var/www/wordpress
 
 # Let client access server through ssh
-cat /vagrant/vagrant/share/id_rsa.pub >> /home/vagrant/.ssh/authorized_keys
+cat /vagrant/vagrant/share/id_ecdsa.pub >> /home/vagrant/.ssh/authorized_keys
 
 # Create test folder
 cd /home/vagrant

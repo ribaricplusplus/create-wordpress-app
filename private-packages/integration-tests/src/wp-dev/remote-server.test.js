@@ -24,7 +24,7 @@ describe( 'RemoteServer', () => {
 						username: 'vagrant',
 						privateKeyPath: path.join(
 							os.homedir(),
-							'.ssh/id_rsa'
+							'.ssh/id_ecdsa'
 						),
 						port: 22,
 					},
@@ -41,7 +41,7 @@ describe( 'RemoteServer', () => {
 				ssh: {
 					host: '192.168.56.125',
 					username: 'vagrant',
-					privateKeyPath: path.join( os.homedir(), '.ssh/id_rsa' ),
+					privateKeyPath: path.join( os.homedir(), '.ssh/id_ecdsa' ),
 					port: 22,
 				},
 			} );

@@ -25,6 +25,6 @@ module.exports = {
 //		host: 'www.example.com',
 //		port: 22,
 //		username: 'TODO'
-//		privateKeyPath: path.join( os.homedir(), '.ssh/id_rsa' )
+//		privateKeyPath: path.join( os.homedir(), '.ssh/id_ecdsa' )
 //	},
 }
